@@ -13,14 +13,8 @@
     "check-types": {
       "dependsOn": ["^check-types"]
     },
-    "pipeline": {
-      "build": {
-        "outputs": ["dist/**"]
-      },
-      "dev": {
-        "cache": false,
-        "persistent": true
-      }
+    "dev": {
+      "cache": false
     }
   }
 }
