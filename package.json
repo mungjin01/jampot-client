@@ -2,7 +2,6 @@
   "name": "electron-react-ts-monorepo",
   "private": true,
   "scripts": {
-    "prepare": "husky install",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
@@ -26,5 +25,9 @@
   "workspaces": [
     "packages/*",
     "apps/*"
-  ]
+  ],
+  "dependencies": {
+    "emotion": "^11.0.0",
+    "zustand": "^5.0.3"
+  }
 }
