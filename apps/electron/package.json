@@ -13,12 +13,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@repo/ui": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "concurrently": "^9.1.2",
     "electron": "^33.3.1",
     "wait-on": "^8.0.2"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5"
   }
 }
