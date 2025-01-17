@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <div className="card">
-        <Button onClick={() => alert('Test')}>Test</Button>
+        <Button>Test</Button>
       </div>
     </>
   );
