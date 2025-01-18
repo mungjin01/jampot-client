@@ -12,15 +12,15 @@ const Button = ({ children, onClick }: ButtonProps) => {
 export default Button;
 
 const StyledButton = styled.button`
-  background-color: #007bff;
-  color: #fff;
+  background-color: ${({ theme }) => theme.palette.yellow500};
+  color: ${({ theme }) => theme.palette.white};
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.typo.label1m};
   cursor: pointer;
 
   &:hover {
-    background-color: #0056b3;
+    ${({ theme }) => theme.palette.yellow600};
   }
 `;

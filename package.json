@@ -29,10 +29,5 @@
   "workspaces": [
     "packages/*",
     "apps/*"
-  ],
-  "dependencies": {
-    "@emotion/styled": "^11.14.0",
-    "emotion": "^11.0.0",
-    "zustand": "^5.0.3"
-  }
+  ]
 }
