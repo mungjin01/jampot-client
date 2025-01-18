@@ -17,6 +17,7 @@ const generateTypo = (weight: number, size: number, lineHeight: number) => css`
     'Segoe UI Emoji',
     'Segoe UI Symbol',
     sans-serif;
+
   font-weight: ${weight};
   font-size: ${size}px;
   line-height: ${lineHeight}px;
