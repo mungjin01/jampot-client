@@ -9,7 +9,7 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 
 const config: ForgeConfig = {
   packagerConfig: {
-    executableName: 'electron-shadcn',
+    executableName: 'jampot-client',
     asar: true,
   },
   rebuildConfig: {},
@@ -23,11 +23,11 @@ const config: ForgeConfig = {
     new VitePlugin({
       build: [
         {
-          entry: 'src/main/main.ts', 
+          entry: 'src/main/main.ts',
           config: 'vite.main.config.ts',
         },
         {
-          entry: 'src/main/preload.ts', 
+          entry: 'src/main/preload.ts',
           config: 'vite.preload.config.ts',
         },
       ],

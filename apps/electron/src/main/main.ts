@@ -16,15 +16,17 @@ app.on('ready', () => {
     },
   });
 
-  mainWindow.webContents.openDevTools();
   // eslint-disable-next-line turbo/no-undeclared-env-vars
   if (process.env.NODE_ENV === 'development') {
-    mainWindow.loadURL('http://localhost:3000');
+    mainWindow.loadURL('http://localhost:5173');
+    mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
+    mainWindow.webContents.openDevTools(); //임시
   }
 });
 
 app.on('window-all-closed', () => {
+  mainWindow = null;
   if (process.platform !== 'darwin') app.quit();
 });
