@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    "paths": {
-      "@electron/*": ["./src/*"]
-    },
-    "target": "ESNext",
-    "module": "CommonJS",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "outDir": "dist",
+    "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "allowJs": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["electron"],
+    "target": "ESNext"
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
