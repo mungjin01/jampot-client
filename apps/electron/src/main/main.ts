@@ -13,16 +13,16 @@ app.on('ready', () => {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
     },
   });
 
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:5173');
     mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
-    mainWindow.webContents.openDevTools(); //임시
+    mainWindow.webContents.openDevTools();
   }
 });
 

@@ -2,9 +2,15 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
-    outDir: 'dist/main',
+    outDir: 'dist',
+    target: 'node14',
     rollupOptions: {
-      input: 'src/main/main.ts',
+      external: ['path', 'url', 'fs', 'electron'],
+    },
+  },
+  resolve: {
+    alias: {
+      path: 'path-browserify',
     },
   },
 });
