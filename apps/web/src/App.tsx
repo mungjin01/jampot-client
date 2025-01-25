@@ -1,14 +1,13 @@
-import './App.css';
-import { Button } from '@repo/ui';
+import { UIProvider } from '@repo/ui';
+import { Router } from './routes';
+import './index.css';
 
-function App() {
+const App = () => {
   return (
-    <>
-      <div className="card">
-        <Button>Test</Button>
-      </div>
-    </>
+    <UIProvider>
+      <Router />
+    </UIProvider>
   );
-}
+};
 
 export default App;
