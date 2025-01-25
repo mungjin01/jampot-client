@@ -84,6 +84,7 @@ const Container = styled.button<ButtonProps>`
           background-color: ${theme.palette.yellow600};
           &:hover {
             background-color: ${theme.palette.yellow700};
+          }
         `;
       case 'yellow2':
         return `
@@ -91,6 +92,7 @@ const Container = styled.button<ButtonProps>`
           background-color: ${theme.palette.yellow50};
           &:hover {
             background-color: ${theme.palette.yellow100};
+          } 
         `;
       default:
         return '';

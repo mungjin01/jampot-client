@@ -276,9 +276,6 @@ importers:
       '@emotion/styled':
         specifier: ^11.11.0
         version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.1)(react@18.3.1))(@types/react@18.3.1)(react@18.3.1)
-      emotion:
-        specifier: ^11.0.0
-        version: 11.0.0
       emotion-reset:
         specifier: ^3.0.1
         version: 3.0.1(@emotion/react@11.14.0(@types/react@18.3.1)(react@18.3.1))
