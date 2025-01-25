@@ -279,6 +279,9 @@ importers:
       emotion:
         specifier: ^11.0.0
         version: 11.0.0
+      emotion-reset:
+        specifier: ^3.0.1
+        version: 3.0.1(@emotion/react@11.14.0(@types/react@18.3.1)(react@18.3.1))
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1739,6 +1742,11 @@ packages:
 
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
+
+  emotion-reset@3.0.1:
+    resolution: {integrity: sha512-v6scW83qSu+wtxg7lX1s0+/2U4EAAGFxDQMkvXE10jhKtyuXCzy3/su5/MU9ZjXeNv6ZjxZH51WktrKosKUy9g==}
+    peerDependencies:
+      '@emotion/react': '>=11'
 
   emotion@11.0.0:
     resolution: {integrity: sha512-QW3CRqic3aRw1OBOcnvxaHEpCmxtlGwZ5tM9dV5rY3Rn+F41E8EgTPOqJ5VfsqQ5ZXHDs2zSDyUwGI0ZfC2+5A==}
@@ -5965,6 +5973,10 @@ snapshots:
   emoji-regex@8.0.0: {}
 
   emoji-regex@9.2.2: {}
+
+  emotion-reset@3.0.1(@emotion/react@11.14.0(@types/react@18.3.1)(react@18.3.1)):
+    dependencies:
+      '@emotion/react': 11.14.0(@types/react@18.3.1)(react@18.3.1)
 
   emotion@11.0.0: {}
 
