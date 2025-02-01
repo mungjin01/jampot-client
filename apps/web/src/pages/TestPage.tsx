@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui';
+import { Button, Chip } from '@repo/ui';
 
 export const TestPage = () => {
   return (
@@ -21,6 +21,7 @@ export const TestPage = () => {
       <Button colorTheme="yellow2" width="376px" height="48px">
         옐로우2
       </Button>
+      <Chip colorTheme="yellow">테스트</Chip>
     </div>
   );
 };
