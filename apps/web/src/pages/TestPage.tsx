@@ -1,26 +1,27 @@
-import { Button } from '@repo/ui';
+import { useTheme } from '@emotion/react';
+import { Icon } from '@repo/ui';
 
 export const TestPage = () => {
+  const theme = useTheme();
   return (
     <div>
-      <Button colorTheme="gray" width="376px" height="48px">
-        Text
-      </Button>
-      <Button colorTheme="black" width="376px" height="48px">
-        블랙
-      </Button>
-      <Button colorTheme="blue1" width="376px" height="48px">
-        블루1
-      </Button>
-      <Button colorTheme="blue2" width="376px" height="48px">
-        블루2
-      </Button>
-      <Button colorTheme="yellow1" width="376px" height="48px">
-        옐로우1
-      </Button>
-      <Button colorTheme="yellow2" width="376px" height="48px">
-        옐로우2
-      </Button>
+      <Icon
+        name="add"
+        fill={theme.palette.yellow700}
+        stroke={theme.palette.yellow700}
+      />
+      <Icon name="arrowDown" fill={theme.palette.yellow700} />
+      <Icon name="arrowLeft" fill={theme.palette.yellow700} />
+      <Icon name="arrowRight" fill={theme.palette.yellow700} />
+      <Icon name="arrowUp" fill={theme.palette.yellow700} />
+      <Icon name="check" fill={theme.palette.yellow700} />
+      <Icon name="close" fill={theme.palette.yellow700} />
+      <Icon name="heart" fill={theme.palette.yellow700} />
+      <Icon name="lock" fill={theme.palette.yellow700} />
+      <Icon name="menu" fill={theme.palette.yellow700} />
+      <Icon name="message" fill={theme.palette.yellow700} />
+      <Icon name="minus" fill={theme.palette.yellow700} />
+      <Icon name="person" fill={theme.palette.yellow700} />
     </div>
   );
 };
