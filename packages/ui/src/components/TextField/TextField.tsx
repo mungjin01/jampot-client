@@ -57,11 +57,20 @@ const Container = styled.div<TextFieldProps>`
 
   ${({ warning, theme }) =>
     warning &&
-    `border-color: ${theme.palette.red500}; background-color: ${theme.palette.gray100}; input { color: ${theme.palette.red700};`}
+    `border-color: ${theme.palette.red500}; 
++    background-color: ${theme.palette.gray100}; 
++    input { 
++      color: ${theme.palette.red700};
++    }
++  `}
 
   ${({ disabled, theme }) =>
     disabled &&
-    `background-color: ${theme.palette.gray200}; input { color: ${theme.palette.gray400}; }`}
+    `background-color: ${theme.palette.gray200}; 
+     input { 
+      color: ${theme.palette.gray400}; 
+    }
+  `}
 `;
 
 const Styled = { Container };
