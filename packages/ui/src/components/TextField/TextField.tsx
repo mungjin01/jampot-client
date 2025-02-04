@@ -22,6 +22,8 @@ export const TextField = forwardRef<HTMLInputElement, Props>(
   }
 );
 
+TextField.displayName = 'TextField';
+
 const Container = styled.div<TextFieldProps>`
   display: inline-flex;
   align-items: center;

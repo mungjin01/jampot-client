@@ -4,3 +4,4 @@ export { Button } from './Button/Button';
 export { Icon } from './Icon/Icon';
 export { Chip } from './Chip/Chip';
 export { TextField } from './TextField/TextField';
+export { ButtonTextField } from './TextField/ButtonTextField';
