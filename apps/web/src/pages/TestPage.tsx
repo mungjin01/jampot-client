@@ -1,6 +1,7 @@
 import { useTheme } from '@emotion/react';
 
 import { ButtonTextField, Icon, TextField } from '@repo/ui';
+import ReactQueryTest from '@web/ReactQueryTest';
 
 export const TestPage = () => {
   const theme = useTheme();
@@ -10,6 +11,7 @@ export const TestPage = () => {
 
   return (
     <div>
+      <ReactQueryTest />
       <Icon
         name="add"
         fill={theme.palette.yellow700}
