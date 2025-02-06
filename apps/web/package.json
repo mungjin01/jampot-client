@@ -12,7 +12,11 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@tanstack/react-query": "^5.66.0",
+    "@tanstack/react-query-devtools": "^5.66.0",
+    "axios": "^1.7.9",
     "@repo/ui": "workspace:*",
+    "@repo/api": "workspace:*",
     "emotion": "^11.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
