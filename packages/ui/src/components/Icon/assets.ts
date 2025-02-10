@@ -13,6 +13,7 @@ import IconMinus from '../../assets/icons/IconMinus.svg?react';
 import IconPerson from '../../assets/icons/IconPerson.svg?react';
 import IconKaKao from '../../assets/icons/IconKaKao.svg?react';
 import IconGoogle from '../../assets/icons/IconGoogle.svg?react';
+import IconJampot from '../../assets/icons/IconJampot.svg?react';
 
 export const icons = {
   add: IconAdd,
@@ -30,4 +31,5 @@ export const icons = {
   person: IconPerson,
   kakao: IconKaKao,
   google: IconGoogle,
+  jampot: IconJampot,
 };
