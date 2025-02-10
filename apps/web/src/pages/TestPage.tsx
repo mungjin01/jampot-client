@@ -1,7 +1,6 @@
 import { useTheme } from '@emotion/react';
 
-import { ButtonTextField, Icon, TextField } from '@repo/ui';
-import ReactQueryTest from '@web/ReactQueryTest';
+import { ButtonTextField, Icon, LoginButton, TextField } from '@repo/ui';
 
 export const TestPage = () => {
   const theme = useTheme();
@@ -11,15 +10,23 @@ export const TestPage = () => {
 
   return (
     <div>
-      <ReactQueryTest />
       <Icon
         name="add"
         fill={theme.palette.yellow700}
         stroke={theme.palette.yellow700}
         size={24}
       />
+      <LoginButton loginTheme="google" iconName="google">
+        Google로 3초만에 시작하기
+      </LoginButton>
+
+      <LoginButton loginTheme="kakao" iconName="kakao" iconSize={40}>
+        Kakao로 3초만에 시작하기
+      </LoginButton>
       <Icon name="arrowDown" fill={theme.palette.yellow700} size={20} />
       <Icon name="arrowLeft" fill={theme.palette.yellow700} size={32} />
+      <Icon name="google" size={40} />
+      <Icon name="kakao" size={40} />
 
       <TextField width="312px" placeholder="테스트1" />
       <TextField width="312px" warning placeholder="테스트2(warning)" />
