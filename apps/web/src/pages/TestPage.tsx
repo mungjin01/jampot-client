@@ -1,9 +1,11 @@
 import { useTheme } from '@emotion/react';
 
 import { ButtonTextField, Icon, LoginButton, TextField } from '@repo/ui';
+import { Header } from '@web/components/Header';
 
 export const TestPage = () => {
   const theme = useTheme();
+
   function handleClick(): void {
     console.log('click');
   }
@@ -16,6 +18,7 @@ export const TestPage = () => {
         stroke={theme.palette.yellow700}
         size={24}
       />
+      <Header />
       <LoginButton loginTheme="google" iconName="google">
         Google로 3초만에 시작하기
       </LoginButton>

@@ -11,7 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build && electron .",
-    "dev": "concurrently \"pnpm --filter web dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "dev": "electron .\"",
     "dev:main": "vite build --config vite.main.config.ts --watch",
     "dev:renderer": "vite --config vite.renderer.config.ts",
     "build:main": "vite build --config vite.main.config.ts",
