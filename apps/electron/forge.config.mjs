@@ -41,6 +41,9 @@ const config = {
           config: 'vite.renderer.config.ts',
         },
       ],
+      buildOptions: {
+        emptyOutDir: true,
+      },
     }),
     // Fuses are used to enable/disable various Electron functionality
     // at package time, before code signing the application
