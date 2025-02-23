@@ -1,3 +1,4 @@
+// vite.main.config.ts
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -7,20 +8,12 @@ export default defineConfig({
       jsxImportSource: '@emotion/react',
     }),
   ],
+  optimizeDeps: {
+    include: [],
+  },
   build: {
     rollupOptions: {
-      external: [
-        'scheduler',
-        'react-is',
-        '@emotion/sheet',
-        '@emotion/hash',
-        'stylis',
-        '@emotion/memoize',
-        '@emotion/unitless',
-        'react-router-dom',
-        '@tanstack/query-core',
-        '@tanstack/query-devtools',
-      ],
+      external: [],
     },
   },
 });

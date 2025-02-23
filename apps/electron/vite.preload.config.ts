@@ -9,18 +9,7 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
-      external: [
-        'scheduler',
-        'react-is',
-        '@emotion/sheet',
-        '@emotion/hash',
-        'stylis',
-        '@emotion/memoize',
-        '@emotion/unitless',
-        'react-router-dom',
-        '@tanstack/query-core',
-        '@tanstack/query-devtools',
-      ],
+      external: [],
     },
   },
 });

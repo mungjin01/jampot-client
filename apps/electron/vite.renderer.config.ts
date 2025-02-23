@@ -7,4 +7,9 @@ export default defineConfig({
       jsxImportSource: '@emotion/react',
     }),
   ],
+  build: {
+    rollupOptions: {
+      external: [],
+    },
+  },
 });
