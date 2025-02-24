@@ -45,8 +45,8 @@ importers:
         specifier: ^7.26.9
         version: 7.26.9
       '@emotion/cache':
-        specifier: 11.14.0
-        version: 11.14.0
+        specifier: 11.11.0
+        version: 11.11.0
       '@emotion/hash':
         specifier: ^0.9.2
         version: 0.9.2
@@ -57,8 +57,8 @@ importers:
         specifier: ^0.9.0
         version: 0.9.0
       '@emotion/react':
-        specifier: 11.14.0
-        version: 11.14.0(@types/react@18.3.18)(react@18.3.1)
+        specifier: 11.11.3
+        version: 11.11.3(@types/react@18.3.18)(react@18.3.1)
       '@emotion/serialize':
         specifier: 1.3.3
         version: 1.3.3
@@ -66,8 +66,8 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
       '@emotion/styled':
-        specifier: 11.14.0
-        version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
+        specifier: 11.11.0
+        version: 11.11.0(@emotion/react@11.11.3(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
       '@emotion/unitless':
         specifier: ^0.10.0
         version: 0.10.0
@@ -113,9 +113,6 @@ importers:
       electron-squirrel-startup:
         specifier: ^1.0.1
         version: 1.0.1
-      emotion:
-        specifier: ^11.0.0
-        version: 11.0.0
       express:
         specifier: ^4.21.2
         version: 4.21.2
@@ -138,7 +135,7 @@ importers:
         specifier: ^7.2.0
         version: 7.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router-dom:
-        specifier: ^7.2.0
+        specifier: ^7.1.3
         version: 7.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       scheduler:
         specifier: ^0.25.0
@@ -253,7 +250,7 @@ importers:
         specifier: ^8.18.2
         version: 8.24.1(eslint@9.21.0)(typescript@5.7.3)
       vite:
-        specifier: ^6.0.5
+        specifier: ^6.0.7
         version: 6.1.1(@types/node@22.13.5)(yaml@2.7.0)
       vite-plugin-electron:
         specifier: ^0.29.0
@@ -280,7 +277,7 @@ importers:
         specifier: ^5.66.0
         version: 5.66.9(react@18.3.1)
       '@tanstack/react-query-devtools':
-        specifier: ^5.66.0
+        specifier: ^5.65.0
         version: 5.66.9(@tanstack/react-query@5.66.9(react@18.3.1))(react@18.3.1)
       axios:
         specifier: ^1.7.9
@@ -338,7 +335,7 @@ importers:
         specifier: ^8.18.2
         version: 8.24.1(eslint@9.21.0)(typescript@5.7.3)
       vite:
-        specifier: ^6.0.5
+        specifier: ^6.0.7
         version: 6.1.1(@types/node@22.13.5)(yaml@2.7.0)
       vite-plugin-svgr:
         specifier: ^4.3.0
@@ -356,7 +353,7 @@ importers:
         specifier: ^5.66.0
         version: 5.66.9(react@18.3.1)
       '@tanstack/react-query-devtools':
-        specifier: ^5.66.0
+        specifier: ^5.65.0
         version: 5.66.9(@tanstack/react-query@5.66.9(react@18.3.1))(react@18.3.1)
       axios:
         specifier: ^1.7.9
@@ -1156,6 +1153,9 @@ packages:
   '@emotion/babel-plugin@11.13.5':
     resolution: {integrity: sha512-pxHCpT2ex+0q+HH91/zsdHkw/lXd468DIN2zvfvLtPKLLMo6gQj7oLObq8PhkrxOZb/gGCq03S3Z7PDhS8pduQ==}
 
+  '@emotion/cache@11.11.0':
+    resolution: {integrity: sha512-P34z9ssTCBi3e9EI1ZsWpNHcfY1r09ZO0rZbRO2ob3ZQMnFI35jB536qoXbkdesr5EUhYi22anuEJuyxifaqAQ==}
+
   '@emotion/cache@11.14.0':
     resolution: {integrity: sha512-L/B1lc/TViYk4DcpGxtAVbx0ZyiKM5ktoIyafGkH6zg/tj+mA+NE//aPYKG0k8kCHSHVJrpLpcAlOBEXQ3SavA==}
 
@@ -1165,8 +1165,20 @@ packages:
   '@emotion/is-prop-valid@1.3.1':
     resolution: {integrity: sha512-/ACwoqx7XQi9knQs/G0qKvv5teDMhD7bXYns9N/wM8ah8iNb8jZ2uNO0YOgiq2o2poIvVtJS2YALasQuMSQ7Kw==}
 
+  '@emotion/memoize@0.8.1':
+    resolution: {integrity: sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA==}
+
   '@emotion/memoize@0.9.0':
     resolution: {integrity: sha512-30FAj7/EoJ5mwVPOWhAyCX+FPfMDrVecJAM+Iw9NRoSl4BBAQeqj4cApHHUXOVvIPgLVDsCFoz/hGD+5QQD1GQ==}
+
+  '@emotion/react@11.11.3':
+    resolution: {integrity: sha512-Cnn0kuq4DoONOMcnoVsTOR8E+AdnKFf//6kUWc4LCdnxj31pZWn7rIULd6Y7/Js1PiPHzn7SKCM9vB/jBni8eA==}
+    peerDependencies:
+      '@types/react': '*'
+      react: '>=16.8.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   '@emotion/react@11.14.0':
     resolution: {integrity: sha512-O000MLDBDdk/EohJPFUqvnp4qnHeYkVP5B0xEG0D/L7cOKP9kefu2DXn8dj74cQfsEzUqh+sr1RzFqiL1o+PpA==}
@@ -1182,6 +1194,16 @@ packages:
 
   '@emotion/sheet@1.4.0':
     resolution: {integrity: sha512-fTBW9/8r2w3dXWYM4HCB1Rdp8NLibOw2+XELH5m5+AkWiL/KqYX6dc0kKYlaYyKjrQ6ds33MCdMPEwgs2z1rqg==}
+
+  '@emotion/styled@11.11.0':
+    resolution: {integrity: sha512-hM5Nnvu9P3midq5aaXj4I+lnSfNi7Pmd4EWk1fOZ3pxookaQTNew6bp4JaCBYM4HVFZF9g7UjJmsUmC2JlxOng==}
+    peerDependencies:
+      '@emotion/react': ^11.0.0-rc.0
+      '@types/react': '*'
+      react: '>=16.8.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   '@emotion/styled@11.14.0':
     resolution: {integrity: sha512-XxfOnXFffatap2IyCeJyNov3kiDQWoR08gPUQxvbL7fxKryGBKUZUkG6Hz48DZwVrJSVh9sJboyV1Ds4OW6SgA==}
@@ -1203,6 +1225,9 @@ packages:
 
   '@emotion/utils@1.4.2':
     resolution: {integrity: sha512-3vLclRofFziIa3J2wDh9jjbkUz9qk5Vi3IZ/FSTKViB0k+ef0fPV7dYrUIugbgupYDx7v9ud/SjrtEP8Y4xLoA==}
+
+  '@emotion/weak-memoize@0.3.1':
+    resolution: {integrity: sha512-EsBwpc7hBUJWAsNPBmJy4hxWx12v6bshQsldrVmjxJoc3isbxhOrF2IcCpaXxfvq03NwkI7sbsOLXbYuqF/8Ww==}
 
   '@emotion/weak-memoize@0.4.0':
     resolution: {integrity: sha512-snKqtPW01tN0ui7yu9rGv69aJXr/a/Ywvl11sUjNtEcRc+ng/mQriFL0wLXMef74iHa/EkftbDzU9F8iFbH+zg==}
@@ -6205,6 +6230,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@emotion/cache@11.11.0':
+    dependencies:
+      '@emotion/memoize': 0.8.1
+      '@emotion/sheet': 1.4.0
+      '@emotion/utils': 1.4.2
+      '@emotion/weak-memoize': 0.3.1
+      stylis: 4.2.0
+
   '@emotion/cache@11.14.0':
     dependencies:
       '@emotion/memoize': 0.9.0
@@ -6219,7 +6252,25 @@ snapshots:
     dependencies:
       '@emotion/memoize': 0.9.0
 
+  '@emotion/memoize@0.8.1': {}
+
   '@emotion/memoize@0.9.0': {}
+
+  '@emotion/react@11.11.3(@types/react@18.3.18)(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.26.9
+      '@emotion/babel-plugin': 11.13.5
+      '@emotion/cache': 11.11.0
+      '@emotion/serialize': 1.3.3
+      '@emotion/use-insertion-effect-with-fallbacks': 1.2.0(react@18.3.1)
+      '@emotion/utils': 1.4.2
+      '@emotion/weak-memoize': 0.3.1
+      hoist-non-react-statics: 3.3.2
+      react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.18
+    transitivePeerDependencies:
+      - supports-color
 
   '@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1)':
     dependencies:
@@ -6247,6 +6298,21 @@ snapshots:
 
   '@emotion/sheet@1.4.0': {}
 
+  '@emotion/styled@11.11.0(@emotion/react@11.11.3(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.26.9
+      '@emotion/babel-plugin': 11.13.5
+      '@emotion/is-prop-valid': 1.3.1
+      '@emotion/react': 11.11.3(@types/react@18.3.18)(react@18.3.1)
+      '@emotion/serialize': 1.3.3
+      '@emotion/use-insertion-effect-with-fallbacks': 1.2.0(react@18.3.1)
+      '@emotion/utils': 1.4.2
+      react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.18
+    transitivePeerDependencies:
+      - supports-color
+
   '@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.26.9
@@ -6269,6 +6335,8 @@ snapshots:
       react: 18.3.1
 
   '@emotion/utils@1.4.2': {}
+
+  '@emotion/weak-memoize@0.3.1': {}
 
   '@emotion/weak-memoize@0.4.0': {}
 
