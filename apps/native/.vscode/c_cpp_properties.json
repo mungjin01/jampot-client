@@ -1,0 +1,17 @@
+{
+  "configurations": [
+    {
+      "name": "windows-gcc-x86",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "C:/Users/becka/AppData/Local/node-gyp/Cache/20.17.0/include/node"
+      ],
+      "compilerPath": "C:/MinGW/bin/gcc.exe",
+      "cStandard": "${default}",
+      "cppStandard": "${default}",
+      "intelliSenseMode": "windows-msvc-x86",
+      "compilerArgs": [""]
+    }
+  ],
+  "version": 4
+}

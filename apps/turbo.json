@@ -3,5 +3,5 @@
     "build": ["install"],
     "dev": ["install"]
   },
-  "workspace": ["apps/web", "apps/electron", "packages/*"]
+  "workspace": ["apps/web", "apps/electron", "apps/native", "packages/*"]
 }
