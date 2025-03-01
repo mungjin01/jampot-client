@@ -1,13 +1,17 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
-  root: path.resolve(__dirname, 'src/renderer'),
-  base: './',
+  plugins: [
+    react({
+      jsxImportSource: '@emotion/react',
+    }),
+    svgr(),
+  ],
   build: {
-    outDir: path.resolve(__dirname, 'dist/renderer'),
-    emptyOutDir: true,
+    rollupOptions: {
+      external: [],
+    },
   },
-  plugins: [react()],
 });
