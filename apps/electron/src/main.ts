@@ -1,9 +1,17 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'node:path';
 
-const nativeModule = require(
-  path.join(__dirname, '../../../native/build/Release/module.node')
-);
+let nativeModule: { hello: () => string } | null = null;
+
+try {
+  nativeModule = require(
+    path.join(__dirname, '../../../native/build/Release/module.node')
+  );
+  console.log(nativeModule.hello());
+} catch (error) {
+  console.error('[main.ts]:', error);
+  nativeModule = null;
+}
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
@@ -17,7 +25,6 @@ const createWindow = () => {
 
   console.log(nativeModule);
 
-  // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
   } else {
@@ -25,9 +32,7 @@ const createWindow = () => {
       path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
     );
   }
-  /* 
-  mainWindow.loadURL('http://localhost:5173');
-  logMessage('렌더러 로드 );*/
+
   mainWindow.webContents.openDevTools();
 };
 
