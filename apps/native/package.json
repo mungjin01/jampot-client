@@ -1,6 +1,6 @@
 {
   "name": "native",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "index.js",
   "scripts": {
     "build": "node-gyp build",
@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "nan": "^2.22.1",
+    "node-abi": "^3.74.0",
     "node-addon-api": "^8.3.1"
   },
   "devDependencies": {
+    "electron-rebuild": "^3.2.9",
     "node-gyp": "^11.1.0"
   },
   "gypfile": true
