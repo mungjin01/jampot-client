@@ -1,18 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'node:path';
 
-let nativeModule: { hello: () => string } | null = null;
-
-try {
-  nativeModule = require(
-    path.join(__dirname, '../../../native/build/Release/module.node')
-  );
-  console.log(nativeModule.hello());
-} catch (error) {
-  console.error('[main.ts]:', error);
-  nativeModule = null;
-}
-
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -22,8 +10,6 @@ const createWindow = () => {
       nodeIntegration: true,
     },
   });
-
-  console.log(nativeModule);
 
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
