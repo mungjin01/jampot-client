@@ -38,6 +38,24 @@ async function initMediasoup() {
   console.log('Mediasoup Worker & Router 초기화 완료');
 }
 
+async function createWebRtcTransport() {
+  const transport = await router.createWebRtcTransport(
+    mediasoupConfig.webRtcTransport
+  );
+
+  console.log(`WebRTC Transport 생성됨: ${transport.id}`);
+
+  return {
+    transport,
+    params: {
+      id: transport.id,
+      iceParameters: transport.iceParameters,
+      iceCandidates: transport.iceCandidates,
+      dtlsParameters: transport.dtlsParameters,
+    },
+  };
+}
+
 initMediasoup();
 
 wss.on('connection', (ws) => {
@@ -46,13 +64,10 @@ wss.on('connection', (ws) => {
   ws.on('message', (message) => {
     const data = JSON.parse(message.toString());
 
-    if (data.type === 'getRouterRtpCapabilities') {
-      ws.send(
-        JSON.stringify({
-          type: 'routerRtpCapabilities',
-          data: router.rtpCapabilities,
-        })
-      );
+    if (data.type === 'produce') {
+      console.log('클라이언트가 오디오 송출을 시작함');
+      console.log(`Kind: ${data.kind}`);
+      console.log(`RTP Parameters:`, data.rtpParameters);
     }
   });
 

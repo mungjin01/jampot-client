@@ -1,91 +1,69 @@
-import { useTheme } from '@emotion/react';
-
-import {
-  ButtonTextField,
-  Icon,
-  LoginButton,
-  TextField,
-  Dropdown,
-} from '@repo/ui';
-import { Header } from '@web/components/Header';
-import { useState } from 'react';
+import { startWebRTC } from '@web/webrtc';
+import { useEffect, useRef, useState } from 'react';
 
 export const TestPage = () => {
-  const theme = useTheme();
+  const [isConnected, setIsConnected] = useState(false);
+  const [log, setLog] = useState<string[]>([]);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const [selectedContents, setSelectedContents] = useState<string[]>([]);
-  const contents = ['보컬', '기타', '베이스', '키보드', '드럼', '그 외'];
+  useEffect(() => {
+    const logHandler = (message: string) => {
+      setLog((prev) => [...prev, message]);
+    };
 
-  function handleClick(): void {
-    console.log('click');
-  }
+    startWebRTC({
+      onConnect: () => setIsConnected(true),
+      onLog: logHandler,
+    });
+
+    return () => {
+      setIsConnected(false);
+    };
+  }, []);
+
+  const handleCheckMedia = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+
+      const audio = new Audio();
+      audio.srcObject = stream;
+      audio.play();
+    } catch (error) {
+      setLog((prev) => [...prev, '카메라 또는 마이크 접근 불가']);
+    }
+  };
 
   return (
-    <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <Icon
-        name="add"
-        fill={theme.palette.yellow700}
-        stroke={theme.palette.yellow700}
-        size={24}
+    <div style={{ padding: '20px' }}>
+      <h2>WebRTC 테스트 페이지</h2>
+      <p>연결 상태: {isConnected ? '연결됨' : '연결 안 됨'}</p>
+      <button onClick={handleCheckMedia}>비디오 & 마이크 테스트</button>
+      <h3>로그</h3>
+      <div
+        style={{
+          maxHeight: '200px',
+          overflowY: 'auto',
+          border: '1px solid #ddd',
+          padding: '10px',
+        }}
+      >
+        {log.map((msg, index) => (
+          <p key={index}>{msg}</p>
+        ))}
+      </div>
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        style={{ width: '300px', marginTop: '10px', border: '1px solid black' }}
       />
-      <Dropdown
-        title={'세션 선택'}
-        contents={contents}
-        selectedContents={selectedContents}
-        setSelectedContents={setSelectedContents}
-      />
-      <Dropdown
-        title={'세션 선택'}
-        contents={contents}
-        selectedContents={selectedContents}
-        setSelectedContents={setSelectedContents}
-        width="400px"
-      />
-
-      <Icon
-        name="add"
-        fill={theme.palette.yellow700}
-        stroke={theme.palette.yellow700}
-        size={24}
-      />
-      <Header />
-      <LoginButton loginTheme="google" iconName="google">
-        Google로 3초만에 시작하기
-      </LoginButton>
-
-      <Icon name="arrowDown" fill={theme.palette.yellow700} size={20} />
-      <Icon name="arrowLeft" fill={theme.palette.yellow700} size={32} />
-      <Icon name="google" size={40} />
-
-      <Icon name="kakao" size={40} />
-
-      <TextField width="312px" placeholder="테스트1" />
-      <TextField width="312px" warning placeholder="테스트2(warning)" />
-      <TextField width="312px" disabled placeholder="테스트3(disabled)" />
-      <ButtonTextField
-        buttonText="Text"
-        buttonClickHandler={handleClick}
-        inputDisabled={false}
-        buttonDisabled={false}
-        warning={false}
-        placeholder="테스트테스트"
-      />
-      <LoginButton loginTheme="kakao" iconName="kakao" iconSize={40}>
-        Kakao로 3초만에 시작하기
-      </LoginButton>
     </div>
   );
 };
