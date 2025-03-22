@@ -5,7 +5,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 
-const API_URL = 'https://jampot.co.kr/'; // 테스트용 API 주소
+const API_URL = 'https://jampot.co.kr/';
 
 export const instance: AxiosInstance = axios.create({
   baseURL: API_URL,
