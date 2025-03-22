@@ -1,62 +1,68 @@
-import { useTheme } from '@emotion/react';
-import styled from '@emotion/styled';
-import { Button, Dropdown, Icon, LoginButton, TextField } from '@repo/ui';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { startWebRTC } from '../webrtc';
 
 export const TestPage = () => {
-  const theme = useTheme();
-  console.log(theme);
-  const [selectedContents, setSelectedContents] = useState<string[]>([]);
-  const contents = ['보컬', '기타', '베이스', '키보드', '드럼', '그 외'];
+  const [isConnected, setIsConnected] = useState(false);
+  const [log, setLog] = useState<string[]>([]);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const logHandler = (message: string) => {
+      setLog((prev) => [...prev, message]);
+    };
+
+    startWebRTC({
+      onConnect: () => setIsConnected(true),
+      onLog: logHandler,
+    });
+
+    return () => {
+      setIsConnected(false);
+    };
+  }, []);
+
+  const handleCheckMedia = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+
+      const audio = new Audio();
+      audio.srcObject = stream;
+      audio.play();
+    } catch (error) {
+      setLog((prev) => [...prev, '카메라 또는 마이크 접근 불가']);
+    }
+  };
 
   return (
-    <div>
-      <Button colorTheme="gray" width="376px" height="48px">
-        Text
-      </Button>
-      <Button colorTheme="black" width="376px" height="48px">
-        블랙
-      </Button>
-      <Button colorTheme="blue1" width="376px" height="48px">
-        블루1
-      </Button>
-      <Button colorTheme="blue2" width="376px" height="48px">
-        블루2
-      </Button>
-      <Button colorTheme="yellow1" width="376px" height="48px">
-        옐로우1
-      </Button>
-      <LoginButton loginTheme="kakao" iconName="kakao">
-        Kakao로 3초만에 시작하기
-      </LoginButton>
-      {/*<Icon name="arrowDown" fill={theme.palette.yellow700} size={20} />
-      <Icon name="arrowLeft" fill={theme.palette.yellow700} size={32} />*/}
-      <Icon name="google" size={40} />
-
-      <Icon name="kakao" size={40} />
-
-      <TextField width="312px" placeholder="테스트1" />
-      <TextField width="312px" warning placeholder="테스트2(warning)" />
-      <TextField width="312px" disabled placeholder="테스트3(disabled)" />
-      {/*}
-      <Icon
-        name="add"
-        fill={theme.palette.yellow700}
-        stroke={theme.palette.yellow700}
-        size={24}
-      />*/}
-      <Dropdown
-        title={'세션 선택'}
-        contents={contents}
-        selectedContents={selectedContents}
-        setSelectedContents={setSelectedContents}
-      />
-      <Dropdown
-        title={'세션 선택'}
-        contents={contents}
-        selectedContents={selectedContents}
-        setSelectedContents={setSelectedContents}
-        width="400px"
+    <div style={{ padding: '20px' }}>
+      <h2>WebRTC 테스트 페이지</h2>
+      <p>연결 상태: {isConnected ? '연결됨' : '연결 안 됨'}</p>
+      <button onClick={handleCheckMedia}>비디오 & 마이크 테스트</button>
+      <h3>로그</h3>
+      <div
+        style={{
+          maxHeight: '200px',
+          overflowY: 'auto',
+          border: '1px solid #ddd',
+          padding: '10px',
+        }}
+      >
+        {log.map((msg, index) => (
+          <p key={index}>{msg}</p>
+        ))}
+      </div>
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        style={{ width: '300px', marginTop: '10px', border: '1px solid black' }}
       />
     </div>
   );
