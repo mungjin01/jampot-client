@@ -9,8 +9,8 @@ export const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/test" element={<TestPage />} />
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/onboarding" element={<OnboardingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<OnboardingPage />} /> //TODO
       </Routes>
     </BrowserRouter>
   );

@@ -1,27 +1,58 @@
-import { Button, ButtonTextField, Dropdown } from '@repo/ui';
+import { Button, Dropdown, TextField } from '@repo/ui';
 import { useState } from 'react';
 import styled from '@emotion/styled';
+import { fetcher } from '@repo/api';
 
 export const OnboardingForm = () => {
+  const [nickname, setNickname] = useState('');
   const [selectedSessions, setSessions] = useState<string[]>([]);
-  const sessions = ['보컬', '기타', '베이스', '키보드', '드럼', '그 외'];
   const [selectedGenres, setGenres] = useState<string[]>([]);
-  const genres = ['락', '팝', '재즈', '힙합', '클래식', '그 외'];
   const [selectedPublic, setPublic] = useState<string[]>([]);
+
+  const sessions = ['보컬', '기타', '베이스', '키보드', '드럼', '그 외']; //TODO: constant로 분리
+  const genres = ['락', '팝', '재즈', '힙합', '클래식', '그 외'];
   const publicOptions = ['공개', '비공개'];
 
-  function handleClick(): void {
-    console.log('click');
-  }
+  const isFormValid = () => {
+    return (
+      !!nickname &&
+      selectedSessions.length > 0 &&
+      selectedGenres.length > 0 &&
+      selectedPublic.length > 0
+    );
+  };
+
+  const handleSubmit = () => {
+    const requestBody = {
+      nickname,
+      sessionList: selectedSessions,
+      genreList: selectedGenres,
+      isPublic: selectedPublic.includes('공개'),
+    };
+
+    if (!isFormValid()) {
+      alert('모든 정보를 입력해주세요!');
+      return;
+    }
+
+    fetcher
+      .post('/user/join', requestBody)
+      .then((res) => {
+        console.log('회원가입 성공:', res);
+      })
+      .catch((err) => {
+        console.error('회원가입 실패:', err);
+      });
+  };
 
   return (
     <OnboardingContainer>
       <OnboardingSection>
         닉네임 입력하기(*)
-        <ButtonTextField
+        <TextField
           width="434px"
-          buttonText="제출하기"
-          buttonClickHandler={handleClick}
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
         />
       </OnboardingSection>
       <OnboardingSection>
@@ -37,7 +68,7 @@ export const OnboardingForm = () => {
       <OnboardingSection>
         장르 정하기
         <Dropdown
-          title={'category'}
+          title={'장르 선택'}
           contents={genres}
           selectedContents={selectedGenres}
           setSelectedContents={setGenres}
@@ -47,7 +78,7 @@ export const OnboardingForm = () => {
       <OnboardingSection>
         공개 비공개 여부
         <Dropdown
-          title={'세션 선택'}
+          title={'공개 여부 선택'}
           contents={publicOptions}
           selectedContents={selectedPublic}
           setSelectedContents={setPublic}
@@ -58,7 +89,12 @@ export const OnboardingForm = () => {
         <Button colorTheme="gray" width="209px" height="48px">
           취소하기
         </Button>
-        <Button colorTheme="yellow1" width="209px" height="48px">
+        <Button
+          colorTheme="yellow1"
+          width="209px"
+          height="48px"
+          onClick={handleSubmit}
+        >
           저장하기
         </Button>
       </SubmitButtonContainer>
