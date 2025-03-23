@@ -90,3 +90,7 @@ typings/
 
 # Electron-Forge
 out/
+
+#https 인증서
+localhost.pem
+localhost-key.pem

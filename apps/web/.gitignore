@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# https 인증서
+localhost.pem
+localhost-key.pem

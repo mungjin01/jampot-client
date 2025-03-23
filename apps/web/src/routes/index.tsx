@@ -10,7 +10,7 @@ export const Router = () => {
       <Routes>
         <Route path="/test" element={<TestPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<OnboardingPage />} /> //TODO
+        <Route path="/onboarding" element={<OnboardingPage />} />
       </Routes>
     </BrowserRouter>
   );
