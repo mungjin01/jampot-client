@@ -13,6 +13,6 @@ const OnboardingPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 72px 0;
+  padding: 59px 0;
   background-color: ${({ theme }) => theme.palette.yellow50};
 `;
