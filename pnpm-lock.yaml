@@ -125,6 +125,9 @@ importers:
       hoist-non-react-statics:
         specifier: 3.3.2
         version: 3.3.2
+      mediasoup-client:
+        specifier: ^3.9.2
+        version: 3.9.2(encoding@0.1.13)
       node-addon-api:
         specifier: ^8.3.1
         version: 8.3.1

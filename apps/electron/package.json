@@ -102,6 +102,7 @@
     "turbo-stream": "^3.1.0",
     "wait-on": "^8.0.2",
     "ws": "^8.18.1",
+    "mediasoup-client": "^3.9.2",
     "zustand": "^4.1.0"
   }
 }

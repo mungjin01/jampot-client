@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-
+    "paths": {
+      "@electron/*": ["./src/*"]
+    },
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
@@ -12,7 +14,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "outDir": "dist",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "lib": ["ESNext", "DOM"]
   },
   "include": ["src/**/*", "src/emotion.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", ".vite"]

@@ -2,6 +2,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
+import * as path from 'path';
+import * as fs from 'fs';
 
 export default defineConfig({
   plugins: [
@@ -16,6 +18,12 @@ export default defineConfig({
   build: {
     rollupOptions: {
       external: [],
+    },
+  },
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
     },
   },
 });

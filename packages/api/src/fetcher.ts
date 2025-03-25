@@ -5,14 +5,14 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 
-// TODO : 나중에 환경변수로 베이스 설정
-const API_URL = 'https://jsonplaceholder.typicode.com'; // 테스트용 API 주소
+const API_URL = 'https://jampot.co.kr/';
 
 export const instance: AxiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {

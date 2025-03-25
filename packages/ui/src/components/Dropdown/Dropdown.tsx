@@ -63,7 +63,7 @@ export const Dropdown = ({
             </span>
           )}
           <Icon
-            name={open ? 'arrowDown' : 'arrowUp'}
+            name={open ? 'arrowUp' : 'arrowDown'}
             fill={theme.palette.yellow500}
             size={24}
           />
@@ -108,8 +108,8 @@ const DropdownHeader = styled.div`
 `;
 
 const DropdownLabel = styled.span`
-  ${({ theme }) => theme.typo.body1m};
-  color: ${({ theme }) => theme.palette.gray700};
+  ${({ theme }) => theme.typo.body2r};
+  color: ${({ theme }) => theme.palette.gray600};
 `;
 
 const DropdownSelected = styled.div`
@@ -144,7 +144,7 @@ const DropdownItem = styled.button<{ selected: boolean }>`
   padding: 12px 24px;
   height: 48px;
   text-align: left;
-  ${({ theme }) => theme.typo.body1m};
+  ${({ theme }) => theme.typo.body2r};
   color: ${({ selected, theme }) =>
     selected ? theme.palette.yellow500 : theme.palette.gray800};
   background-color: ${({ theme }) => theme.palette.white};
