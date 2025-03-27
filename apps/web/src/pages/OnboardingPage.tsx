@@ -1,5 +1,5 @@
-import { OnboardingForm } from '@web/components/Onboarding/OnboardingForm';
 import styled from '@emotion/styled';
+import { OnboardingForm } from '@web/components/OnboardingPage/OnboardingForm';
 
 export const OnboardingPage = () => {
   return (
