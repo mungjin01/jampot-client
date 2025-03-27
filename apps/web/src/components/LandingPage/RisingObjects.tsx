@@ -14,7 +14,7 @@ type Props = {
   count?: number;
 };
 
-export const RisingObjects = ({ count = 15 }: Props) => {
+export const RisingObjects = ({ count = 20 }: Props) => {
   const { viewport } = useThree();
   const groupRef = useRef<THREE.Group>(null);
 
