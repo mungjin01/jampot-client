@@ -10,8 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
     "@repo/api": "workspace:*",
     "@repo/ui": "workspace:*",
     "@tanstack/react-query": "^5.66.0",

@@ -7,10 +7,56 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@babel/runtime':
+        specifier: ^7.26.9
+        version: 7.26.9
+      '@emotion/cache':
+        specifier: 11.11.0
+        version: 11.11.0
+      '@emotion/hash':
+        specifier: ^0.9.2
+        version: 0.9.2
+      '@emotion/is-prop-valid':
+        specifier: ^1.3.1
+        version: 1.3.1
+      '@emotion/memoize':
+        specifier: ^0.9.0
+        version: 0.9.0
+      '@emotion/serialize':
+        specifier: 1.3.3
+        version: 1.3.3
+      '@emotion/sheet':
+        specifier: ^1.4.0
+        version: 1.4.0
+      '@emotion/unitless':
+        specifier: ^0.10.0
+        version: 0.10.0
+      '@emotion/use-insertion-effect-with-fallbacks':
+        specifier: ^1.2.0
+        version: 1.2.0(react@18.3.1)
+      '@emotion/utils':
+        specifier: ^1.4.2
+        version: 1.4.2
+      '@emotion/weak-memoize':
+        specifier: ^0.4.0
+        version: 0.4.0
+      hoist-non-react-statics:
+        specifier: 3.3.2
+        version: 3.3.2
+      react-is:
+        specifier: ^19.0.0
+        version: 19.0.0
+      stylis:
+        specifier: ^4.3.6
+        version: 4.3.6
     devDependencies:
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@18.3.18)(react@18.3.1)
+      '@emotion/styled':
+        specifier: ^11.11.0
+        version: 11.11.0(@emotion/react@11.14.0(react@18.3.1))(react@18.3.1)
       eslint:
         specifier: ^9.18.0
         version: 9.21.0
@@ -59,18 +105,12 @@ importers:
       '@emotion/memoize':
         specifier: ^0.9.0
         version: 0.9.0
-      '@emotion/react':
-        specifier: 11.11.3
-        version: 11.11.3(@types/react@18.3.18)(react@18.3.1)
       '@emotion/serialize':
         specifier: 1.3.3
         version: 1.3.3
       '@emotion/sheet':
         specifier: ^1.4.0
         version: 1.4.0
-      '@emotion/styled':
-        specifier: 11.11.0
-        version: 11.11.0(@emotion/react@11.11.3(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
       '@emotion/unitless':
         specifier: ^0.10.0
         version: 0.10.0
@@ -326,12 +366,6 @@ importers:
 
   apps/web:
     dependencies:
-      '@emotion/react':
-        specifier: ^11.11.3
-        version: 11.14.0(@types/react@18.3.18)(react@18.3.1)
-      '@emotion/styled':
-        specifier: ^11.11.0
-        version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
       '@repo/api':
         specifier: workspace:*
         version: link:../../packages/api
@@ -507,12 +541,6 @@ importers:
 
   packages/ui:
     dependencies:
-      '@emotion/react':
-        specifier: ^11.11.3
-        version: 11.14.0(@types/react@18.3.18)(react@18.3.1)
-      '@emotion/styled':
-        specifier: ^11.11.0
-        version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1250,15 +1278,6 @@ packages:
 
   '@emotion/memoize@0.9.0':
     resolution: {integrity: sha512-30FAj7/EoJ5mwVPOWhAyCX+FPfMDrVecJAM+Iw9NRoSl4BBAQeqj4cApHHUXOVvIPgLVDsCFoz/hGD+5QQD1GQ==}
-
-  '@emotion/react@11.11.3':
-    resolution: {integrity: sha512-Cnn0kuq4DoONOMcnoVsTOR8E+AdnKFf//6kUWc4LCdnxj31pZWn7rIULd6Y7/Js1PiPHzn7SKCM9vB/jBni8eA==}
-    peerDependencies:
-      '@types/react': '*'
-      react: '>=16.8.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
 
   '@emotion/react@11.14.0':
     resolution: {integrity: sha512-O000MLDBDdk/EohJPFUqvnp4qnHeYkVP5B0xEG0D/L7cOKP9kefu2DXn8dj74cQfsEzUqh+sr1RzFqiL1o+PpA==}
@@ -7169,22 +7188,6 @@ snapshots:
 
   '@emotion/memoize@0.9.0': {}
 
-  '@emotion/react@11.11.3(@types/react@18.3.18)(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.26.9
-      '@emotion/babel-plugin': 11.13.5
-      '@emotion/cache': 11.11.0
-      '@emotion/serialize': 1.3.3
-      '@emotion/use-insertion-effect-with-fallbacks': 1.2.0(react@18.3.1)
-      '@emotion/utils': 1.4.2
-      '@emotion/weak-memoize': 0.3.1
-      hoist-non-react-statics: 3.3.2
-      react: 18.3.1
-    optionalDependencies:
-      '@types/react': 18.3.18
-    transitivePeerDependencies:
-      - supports-color
-
   '@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.26.9
@@ -7211,18 +7214,16 @@ snapshots:
 
   '@emotion/sheet@1.4.0': {}
 
-  '@emotion/styled@11.11.0(@emotion/react@11.11.3(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)':
+  '@emotion/styled@11.11.0(@emotion/react@11.14.0(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.26.9
       '@emotion/babel-plugin': 11.13.5
       '@emotion/is-prop-valid': 1.3.1
-      '@emotion/react': 11.11.3(@types/react@18.3.18)(react@18.3.1)
+      '@emotion/react': 11.14.0(@types/react@18.3.18)(react@18.3.1)
       '@emotion/serialize': 1.3.3
       '@emotion/use-insertion-effect-with-fallbacks': 1.2.0(react@18.3.1)
       '@emotion/utils': 1.4.2
       react: 18.3.1
-    optionalDependencies:
-      '@types/react': 18.3.18
     transitivePeerDependencies:
       - supports-color
 

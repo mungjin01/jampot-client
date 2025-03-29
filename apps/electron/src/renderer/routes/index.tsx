@@ -1,12 +1,13 @@
 import { BrowserRouter } from 'react-router-dom';
-import { TestPage } from '../pages/TestPage';
+
 import { Route, Routes } from 'react-router-dom';
+import { MyPage } from '../pages/MyPage';
 
 export const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<TestPage />} />
+        <Route path="/" element={<MyPage />} />
       </Routes>
     </BrowserRouter>
   );

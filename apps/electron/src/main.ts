@@ -12,7 +12,11 @@ const createWindow = () => {
   });
 
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+    const secureDevUrl = MAIN_WINDOW_VITE_DEV_SERVER_URL.replace(
+      'http://',
+      'https://'
+    );
+    mainWindow.loadURL(secureDevUrl);
   } else {
     mainWindow.loadFile(
       path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
@@ -21,6 +25,7 @@ const createWindow = () => {
 
   mainWindow.webContents.openDevTools();
 };
+app.commandLine.appendSwitch('ignore-certificate-errors');
 
 app.on('ready', () => {
   process.env.LANG = 'en_US.UTF-8';
