@@ -49,6 +49,8 @@ const TextContainer = styled.div`
 
   color: ${({ theme }) => theme.palette.gray700};
   ${({ theme }) => theme.typo.label1m};
+
+  cursor: pointer;
 `;
 
 const CalendarContainer = styled.div`
@@ -56,6 +58,7 @@ const CalendarContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  cursor: pointer;
 
   & > div:last-of-type {
     flex-shrink: 0;
