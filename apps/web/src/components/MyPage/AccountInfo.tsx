@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { fetcher } from '@repo/api';
 import { Toggle } from '@repo/ui';
 
 type AccountInfoProps = {
@@ -7,6 +8,15 @@ type AccountInfoProps = {
 };
 
 export const AccountInfo = ({ isPublic, setIsPublic }: AccountInfoProps) => {
+  const handleLogout = async () => {
+    try {
+      await fetcher.post('/user/logout');
+      window.location.href = '/';
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+    }
+  };
+
   return (
     <div>
       <FormContainer>
@@ -25,7 +35,7 @@ export const AccountInfo = ({ isPublic, setIsPublic }: AccountInfoProps) => {
           <Toggle checked={isPublic} onChange={() => setIsPublic(!isPublic)} />
         </CalendarContainer>
         <GapContainer />
-        <TextContainer>📞 로그아웃</TextContainer>
+        <TextContainer onClick={handleLogout}>📞 로그아웃</TextContainer>
         <GapContainer />
         <TextContainer>🍭 회원 탈퇴</TextContainer>
       </FormContainer>
