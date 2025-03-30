@@ -71,6 +71,7 @@ export const MyPage = () => {
           selfIntroduction={selfIntroduction}
           setSelfIntroduction={setSelfIntroduction}
           profileImgUrl={profileImgUrl}
+          setProfileImgUrl={setProfileImgUrl}
         />
         <AccountInfo isPublic={isPublic} setIsPublic={setIsPublic} />
       </LeftContainer>
