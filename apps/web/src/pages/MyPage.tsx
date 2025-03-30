@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 import { fetcher } from '@repo/api';
 
 import { AccountInfo } from '@web/components/MyPage/AccountInfo';
 import { NicknameForm } from '@web/components/MyPage/NicknameForm';
 import { ProfileInfo } from '@web/components/MyPage/ProfileInfo';
-import { useEffect, useState } from 'react';
 
 type MypageResponse = {
   nickName: string;
@@ -17,13 +17,25 @@ type MypageResponse = {
 };
 
 export const MyPage = () => {
-  const [data, setData] = useState<MypageResponse | null>(null);
+  const [nickName, setNickName] = useState('');
+  const [selfIntroduction, setSelfIntroduction] = useState('');
+  const [profileImgUrl, setProfileImgUrl] = useState('');
+  const [audioFileUrl, setAudioFileUrl] = useState('');
+  const [isPublic, setIsPublic] = useState(true);
+  const [sessionList, setSessionList] = useState<string[]>([]);
+  const [genreList, setGenreList] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetcher.get<MypageResponse>('/user/mypage');
-        setData(res);
+        setNickName(res.nickName);
+        setSelfIntroduction(res.selfIntroduction);
+        setProfileImgUrl(res.profileImgUrl);
+        setAudioFileUrl(res.audioFileUrl);
+        setIsPublic(res.isPublic);
+        setSessionList(res.sessionList);
+        setGenreList(res.genreList);
       } catch (error) {
         console.error('마이페이지 불러오기 실패:', error);
       }
@@ -32,22 +44,44 @@ export const MyPage = () => {
     fetchData();
   }, []);
 
-  if (!data) return <div>불러오는 중입니다...</div>;
+  const handleSave = async () => {
+    try {
+      await fetcher.put('/user/mypage/edit', {
+        nickName,
+        selfIntroduction,
+        profileImageUrl: profileImgUrl,
+        profileAudioUrl: audioFileUrl,
+        sessionList,
+        genreList,
+        isPublic,
+        calenderServiceAgreement: false,
+      });
+      alert('저장 완료!');
+    } catch (error) {
+      alert('저장 실패');
+    }
+  };
 
   return (
     <MyPageContainer>
       <LeftContainer>
         <NicknameForm
-          nickName={data.nickName}
-          selfIntroduction={data.selfIntroduction}
-          profileImgUrl={data.profileImgUrl}
+          nickName={nickName}
+          setNickName={setNickName}
+          selfIntroduction={selfIntroduction}
+          setSelfIntroduction={setSelfIntroduction}
+          profileImgUrl={profileImgUrl}
         />
-        <AccountInfo isPublic={data.isPublic} />
+        <AccountInfo isPublic={isPublic} setIsPublic={setIsPublic} />
       </LeftContainer>
       <ProfileInfo
-        sessionList={data.sessionList}
-        genreList={data.genreList}
-        audioFileUrl={data.audioFileUrl}
+        sessionList={sessionList}
+        setSessionList={setSessionList}
+        genreList={genreList}
+        setGenreList={setGenreList}
+        audioFileUrl={audioFileUrl}
+        setAudioFileUrl={setAudioFileUrl}
+        onSave={handleSave}
       />
     </MyPageContainer>
   );
@@ -56,19 +90,15 @@ export const MyPage = () => {
 const MyPageContainer = styled.div`
   display: flex;
   height: 100vh;
-
-  padding: 22px;
+  padding: 42px;
   gap: 32px;
-
   justify-content: center;
   align-items: flex-start;
-
   background-color: ${({ theme }) => theme.palette.yellow50};
 `;
 
 const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  gap: 12px;
+  gap: 22px;
 `;

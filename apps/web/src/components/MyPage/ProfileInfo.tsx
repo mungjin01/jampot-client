@@ -1,16 +1,29 @@
 import styled from '@emotion/styled';
 import { Button, ButtonTextField, Dropdown } from '@repo/ui';
+import {
+  GENRES,
+  SESSION_LABEL_TO_VALUE,
+  SESSION_LABELS,
+} from '@web/constants/onboarding';
 
 type ProfileInfoProps = {
   sessionList: string[];
+  setSessionList: (sessions: string[]) => void;
   genreList: string[];
+  setGenreList: (genres: string[]) => void;
   audioFileUrl: string;
+  setAudioFileUrl: (url: string) => void;
+  onSave: () => void;
 };
 
 export const ProfileInfo = ({
   sessionList,
+  setSessionList,
   genreList,
+  setGenreList,
   audioFileUrl,
+  setAudioFileUrl,
+  onSave,
 }: ProfileInfoProps) => {
   return (
     <div>
@@ -20,23 +33,21 @@ export const ProfileInfo = ({
           <Dropdown
             title="세션 선택"
             width="434px"
-            contents={[]}
-            selectedContents={sessionList}
-            setSelectedContents={function (selected: string[]): void {
-              throw new Error('Function not implemented.');
-            }}
+            contents={SESSION_LABELS}
+            selectedContents={sessionList.map((v) => SESSION_LABEL_TO_VALUE[v])}
+            setSelectedContents={(labels) =>
+              setSessionList(labels.map((l) => SESSION_LABEL_TO_VALUE[l]))
+            }
           />
         </SectionContainer>
         <SectionContainer>
           장르 정하기
           <Dropdown
             title="장르 선택"
-            width="434px"
-            contents={[]}
+            contents={GENRES}
             selectedContents={genreList}
-            setSelectedContents={function (selected: string[]): void {
-              throw new Error('Function not implemented.');
-            }}
+            setSelectedContents={setGenreList}
+            width="434px"
           />
         </SectionContainer>
         <SectionContainer>
@@ -50,7 +61,7 @@ export const ProfileInfo = ({
           />
         </SectionContainer>
         <ButtonContainer>
-          <Button colorTheme="yellow2" height="48px">
+          <Button colorTheme="yellow2" height="48px" onClick={onSave}>
             저장하기
           </Button>
         </ButtonContainer>
@@ -85,5 +96,5 @@ const SectionContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 213px;
+  margin-top: 179px;
 `;

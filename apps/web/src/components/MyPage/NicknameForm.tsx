@@ -1,15 +1,19 @@
 import styled from '@emotion/styled';
-import { Button, Icon } from '@repo/ui';
+import { Icon } from '@repo/ui';
 
 type NicknameFormProps = {
   nickName: string;
+  setNickName: (val: string) => void;
   selfIntroduction: string;
+  setSelfIntroduction: (val: string) => void;
   profileImgUrl: string;
 };
 
 export const NicknameForm = ({
   nickName,
+  setNickName,
   selfIntroduction,
+  setSelfIntroduction,
   profileImgUrl,
 }: NicknameFormProps) => {
   return (
@@ -24,14 +28,13 @@ export const NicknameForm = ({
           type="text"
           placeholder="닉네임"
           defaultValue={nickName}
+          onChange={(e) => setNickName(e.target.value)}
         />
         <IntroduceInput
           placeholder="자기소개입력하기"
           defaultValue={selfIntroduction}
+          onChange={(e) => setSelfIntroduction(e.target.value)}
         />
-        <Button colorTheme="yellow2" height="48px">
-          저장하기
-        </Button>
       </FormContainer>
     </div>
   );
@@ -42,7 +45,7 @@ const FormContainer = styled.div`
   flex-direction: column;
 
   width: 100%;
-  padding: 40px;
+  padding: 30px;
   border-radius: 16px;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.13);
 
@@ -65,7 +68,6 @@ const NicknameInput = styled.input`
 const IntroduceInput = styled.textarea`
   width: 100%;
   margin-top: 6px;
-  margin-bottom: 28px;
   padding: 10px;
 
   color: ${({ theme }) => theme.palette.gray700};

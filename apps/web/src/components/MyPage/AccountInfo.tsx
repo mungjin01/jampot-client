@@ -3,9 +3,10 @@ import { Toggle } from '@repo/ui';
 
 type AccountInfoProps = {
   isPublic: boolean;
+  setIsPublic: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const AccountInfo = ({ isPublic }: AccountInfoProps) => {
+export const AccountInfo = ({ isPublic, setIsPublic }: AccountInfoProps) => {
   return (
     <div>
       <FormContainer>
@@ -21,12 +22,7 @@ export const AccountInfo = ({ isPublic }: AccountInfoProps) => {
         <GapContainer />
         <CalendarContainer>
           <TextContainer>🌐 공개 허용</TextContainer>
-          <Toggle
-            checked={isPublic}
-            onChange={function (): void {
-              throw new Error('Function not implemented.');
-            }}
-          />
+          <Toggle checked={isPublic} onChange={() => setIsPublic(!isPublic)} />
         </CalendarContainer>
         <GapContainer />
         <TextContainer>📞 로그아웃</TextContainer>
