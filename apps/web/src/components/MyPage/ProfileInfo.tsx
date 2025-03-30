@@ -1,7 +1,17 @@
 import styled from '@emotion/styled';
 import { Button, ButtonTextField, Dropdown } from '@repo/ui';
 
-export const ProfileInfo = () => {
+type ProfileInfoProps = {
+  sessionList: string[];
+  genreList: string[];
+  audioFileUrl: string;
+};
+
+export const ProfileInfo = ({
+  sessionList,
+  genreList,
+  audioFileUrl,
+}: ProfileInfoProps) => {
   return (
     <div>
       <FormContainer>
@@ -11,7 +21,7 @@ export const ProfileInfo = () => {
             title="세션 선택"
             width="434px"
             contents={[]}
-            selectedContents={[]}
+            selectedContents={sessionList}
             setSelectedContents={function (selected: string[]): void {
               throw new Error('Function not implemented.');
             }}
@@ -23,7 +33,7 @@ export const ProfileInfo = () => {
             title="장르 선택"
             width="434px"
             contents={[]}
-            selectedContents={[]}
+            selectedContents={genreList}
             setSelectedContents={function (selected: string[]): void {
               throw new Error('Function not implemented.');
             }}
@@ -75,5 +85,5 @@ const SectionContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 179px;
+  margin-top: 213px;
 `;

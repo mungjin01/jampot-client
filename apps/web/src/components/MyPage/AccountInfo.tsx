@@ -1,14 +1,28 @@
 import styled from '@emotion/styled';
 import { Toggle } from '@repo/ui';
 
-export const AccountInfo = () => {
+type AccountInfoProps = {
+  isPublic: boolean;
+};
+
+export const AccountInfo = ({ isPublic }: AccountInfoProps) => {
   return (
     <div>
       <FormContainer>
         <CalendarContainer>
           <TextContainer>🗓️ 캘린더 권한 허용</TextContainer>
           <Toggle
-            checked={true}
+            checked={false}
+            onChange={function (): void {
+              throw new Error('Function not implemented.');
+            }}
+          />
+        </CalendarContainer>
+        <GapContainer />
+        <CalendarContainer>
+          <TextContainer>🌐 공개 허용</TextContainer>
+          <Toggle
+            checked={isPublic}
             onChange={function (): void {
               throw new Error('Function not implemented.');
             }}

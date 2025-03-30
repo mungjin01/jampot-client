@@ -1,13 +1,34 @@
 import styled from '@emotion/styled';
 import { Button, Icon } from '@repo/ui';
 
-export const NicknameForm = () => {
+type NicknameFormProps = {
+  nickName: string;
+  selfIntroduction: string;
+  profileImgUrl: string;
+};
+
+export const NicknameForm = ({
+  nickName,
+  selfIntroduction,
+  profileImgUrl,
+}: NicknameFormProps) => {
   return (
     <div>
       <FormContainer>
-        <Icon name="profileImage" size={100} />
-        <NicknameInput type="text" placeholder="닉네임" />
-        <IntroduceInput placeholder="자기소개입력하기" />
+        {profileImgUrl ? (
+          <ProfileImage src={profileImgUrl} alt="프로필 이미지" />
+        ) : (
+          <Icon name="profileImage" size={100} />
+        )}
+        <NicknameInput
+          type="text"
+          placeholder="닉네임"
+          defaultValue={nickName}
+        />
+        <IntroduceInput
+          placeholder="자기소개입력하기"
+          defaultValue={selfIntroduction}
+        />
         <Button colorTheme="yellow2" height="48px">
           저장하기
         </Button>
@@ -56,4 +77,11 @@ const IntroduceInput = styled.textarea`
   resize: vertical;
   min-height: 100px;
   line-height: 1.5;
+`;
+
+const ProfileImage = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
 `;
