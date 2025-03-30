@@ -52,6 +52,7 @@ export const OnboardingForm = () => {
       .post('/user/join', requestBody)
       .then((res) => {
         console.log('회원가입 성공:', res);
+        window.location.href = '/home';
       })
       .catch((err) => {
         console.error('회원가입 실패:', err);

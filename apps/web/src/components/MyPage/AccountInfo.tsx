@@ -17,6 +17,15 @@ export const AccountInfo = ({ isPublic, setIsPublic }: AccountInfoProps) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await fetcher.delete('/user/delete');
+      window.location.href = '/';
+    } catch (error) {
+      console.error('회원 탈퇴 실패:', error);
+    }
+  };
+
   return (
     <div>
       <FormContainer>
@@ -37,7 +46,7 @@ export const AccountInfo = ({ isPublic, setIsPublic }: AccountInfoProps) => {
         <GapContainer />
         <TextContainer onClick={handleLogout}>📞 로그아웃</TextContainer>
         <GapContainer />
-        <TextContainer>🍭 회원 탈퇴</TextContainer>
+        <TextContainer onClick={handleDelete}>🍭 회원 탈퇴</TextContainer>
       </FormContainer>
     </div>
   );
