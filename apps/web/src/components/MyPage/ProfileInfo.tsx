@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
+import { fetcher } from '@repo/api';
 import { Button, ButtonTextField, Dropdown } from '@repo/ui';
 import {
   GENRES,
   SESSION_LABEL_TO_VALUE,
   SESSION_LABELS,
 } from '@web/constants/onboarding';
+import { useRef, useState } from 'react';
 
 type ProfileInfoProps = {
   sessionList: string[];
@@ -25,6 +27,37 @@ export const ProfileInfo = ({
   setAudioFileUrl,
   onSave,
 }: ProfileInfoProps) => {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [fileName, setFileName] = useState('');
+
+  const handleFileClick = () => {
+    fileRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res = await fetcher.post<{ profileAudioUrl: string }>(
+        '/user/upload-profile-audio',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      setAudioFileUrl(res.profileAudioUrl);
+      setFileName(file.name);
+    } catch (err) {
+      alert('오디오 업로드에 실패했습니다.');
+      console.error(err);
+    }
+  };
   return (
     <div>
       <FormContainer>
@@ -52,12 +85,20 @@ export const ProfileInfo = ({
         </SectionContainer>
         <SectionContainer>
           15초 오디오
+          <input
+            type="file"
+            accept="audio/*"
+            onChange={handleFileChange}
+            ref={fileRef}
+            style={{ display: 'none' }}
+          />
           <ButtonTextField
             width="434px"
-            buttonText={'올리기'}
-            buttonClickHandler={function (): void {
-              throw new Error('Function not implemented.');
-            }}
+            value={fileName}
+            placeholder="오디오 파일 선택"
+            readOnly
+            buttonText="올리기"
+            buttonClickHandler={handleFileClick}
           />
         </SectionContainer>
         <ButtonContainer>

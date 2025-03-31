@@ -4,10 +4,17 @@ import { Toggle } from '@repo/ui';
 
 type AccountInfoProps = {
   isPublic: boolean;
+  calenderServiceAgreement: boolean;
   setIsPublic: React.Dispatch<React.SetStateAction<boolean>>;
+  setCalenderServiceAgreement: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const AccountInfo = ({ isPublic, setIsPublic }: AccountInfoProps) => {
+export const AccountInfo = ({
+  isPublic,
+  calenderServiceAgreement,
+  setIsPublic,
+  setCalenderServiceAgreement,
+}: AccountInfoProps) => {
   const handleLogout = async () => {
     try {
       await fetcher.post('/user/logout');
@@ -32,10 +39,10 @@ export const AccountInfo = ({ isPublic, setIsPublic }: AccountInfoProps) => {
         <CalendarContainer>
           <TextContainer>🗓️ 캘린더 권한 허용</TextContainer>
           <Toggle
-            checked={false}
-            onChange={function (): void {
-              throw new Error('Function not implemented.');
-            }}
+            checked={calenderServiceAgreement}
+            onChange={() =>
+              setCalenderServiceAgreement(!calenderServiceAgreement)
+            }
           />
         </CalendarContainer>
         <GapContainer />

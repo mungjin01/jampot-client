@@ -14,6 +14,7 @@ type MypageResponse = {
   isPublic: boolean;
   sessionList: string[];
   genreList: string[];
+  calendarServiceAgreement: boolean;
 };
 
 export const MyPage = () => {
@@ -22,6 +23,8 @@ export const MyPage = () => {
   const [profileImgUrl, setProfileImgUrl] = useState('');
   const [audioFileUrl, setAudioFileUrl] = useState('');
   const [isPublic, setIsPublic] = useState(true);
+  const [calenderServiceAgreement, setCalenderServiceAgreement] =
+    useState(false);
   const [sessionList, setSessionList] = useState<string[]>([]);
   const [genreList, setGenreList] = useState<string[]>([]);
 
@@ -54,7 +57,7 @@ export const MyPage = () => {
         sessionList,
         genreList,
         isPublic,
-        calenderServiceAgreement: false,
+        calenderServiceAgreement,
       });
       alert('저장 완료!');
     } catch (error) {
@@ -73,7 +76,12 @@ export const MyPage = () => {
           profileImgUrl={profileImgUrl}
           setProfileImgUrl={setProfileImgUrl}
         />
-        <AccountInfo isPublic={isPublic} setIsPublic={setIsPublic} />
+        <AccountInfo
+          isPublic={isPublic}
+          setIsPublic={setIsPublic}
+          calenderServiceAgreement={calenderServiceAgreement}
+          setCalenderServiceAgreement={setCalenderServiceAgreement}
+        />
       </LeftContainer>
       <ProfileInfo
         sessionList={sessionList}
