@@ -17,7 +17,15 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: [],
+      external: [
+        'debug',
+        'ua-parser-js',
+        'awaitqueue',
+        'sdp-transform',
+        'h264-profile-level-id',
+        'npm-events-package',
+        'queue-microtask',
+      ],
     },
   },
   server: {

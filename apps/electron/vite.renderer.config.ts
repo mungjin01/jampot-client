@@ -22,4 +22,10 @@ export default defineConfig({
       cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
     },
   },
+
+  resolve: {
+    alias: {
+      '@repo/ui': path.resolve(__dirname, '../../packages/ui/src'),
+    },
+  },
 });

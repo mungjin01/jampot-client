@@ -1,41 +1,54 @@
-import { app, BrowserWindow } from 'electron';
-import path from 'node:path';
+import { app, BrowserWindow, ipcMain, session } from 'electron';
+import path from 'path';
 
-const createWindow = () => {
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+let loginWindow: BrowserWindow | null = null;
+let mainWindow: BrowserWindow | null = null;
+
+function createLoginWindow() {
+  loginWindow = new BrowserWindow({
+    width: 500,
+    height: 700,
     webPreferences: {
+      contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
     },
   });
 
-  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
-  } else {
-    mainWindow.loadFile(
-      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
-    );
-  }
+  loginWindow.loadURL('https://localhost:3000/');
+}
 
-  mainWindow.webContents.openDevTools();
-};
+function createMainWindowWithCookies(cookies: Electron.Cookie[]) {
+  mainWindow = new BrowserWindow({
+    width: 1024,
+    height: 768,
+    webPreferences: {
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js'),
+    },
+  });
 
-app.on('ready', () => {
-  process.env.LANG = 'en_US.UTF-8';
+  Promise.all(
+    cookies.map((cookie) =>
+      mainWindow!.webContents.session.cookies.set({
+        url: 'https://localhost:3000',
+        ...cookie,
+      })
+    )
+  ).then(() => {
+    mainWindow!.loadURL('https://localhost:3000');
+    loginWindow?.close();
+    loginWindow = null;
+  });
+}
 
-  createWindow();
+app.whenReady().then(() => {
+  createLoginWindow();
 });
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
+ipcMain.on('login-success', async () => {
+  const cookies = await loginWindow!.webContents.session.cookies.get({
+    url: 'http://localhost:3000',
+  });
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+  createMainWindowWithCookies(cookies);
 });

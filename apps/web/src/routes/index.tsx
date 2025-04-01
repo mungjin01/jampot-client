@@ -3,7 +3,7 @@ import { TestPage } from '../pages/TestPage';
 import { Route, Routes } from 'react-router-dom';
 import { LoginPage } from '@web/pages/LoginPage';
 import { OnboardingPage } from '@web/pages/OnboardingPage';
-import { Mypage } from '@web/pages/Mypage';
+import { MyPage } from '@web/pages/MyPage';
 
 export const Router = () => {
   return (
@@ -12,7 +12,7 @@ export const Router = () => {
         <Route path="/test" element={<TestPage />} />
         <Route path="/" element={<LoginPage />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
-        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </BrowserRouter>
   );

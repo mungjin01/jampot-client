@@ -22,7 +22,7 @@ export const Dropdown = ({
   const [open, setOpen] = useState(false);
   const selectContainerRef = useRef<HTMLDivElement>(null);
 
-  const oustideClickHandler = (e: MouseEvent) => {
+  const handleOutsideClick = (e: MouseEvent) => {
     if (
       selectContainerRef.current &&
       !selectContainerRef.current.contains(e.target as HTMLElement)
@@ -32,18 +32,20 @@ export const Dropdown = ({
   };
 
   useEffect(() => {
-    document.addEventListener('click', oustideClickHandler);
-    return () => document.removeEventListener('click', oustideClickHandler);
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
   }, []);
 
   const handleToggleDropdown = () => setOpen((prev) => !prev);
 
   const handleSelectContent = (content: string) => {
-    setSelectedContents([
-      ...(selectedContents.includes(content)
-        ? selectedContents.filter((item) => item !== content)
-        : [...selectedContents, content]),
-    ]);
+    const isSelected = selectedContents.includes(content);
+    const updated = isSelected
+      ? selectedContents.filter((item) => item !== content)
+      : [...selectedContents, content];
+
+    const uniqueUpdated = Array.from(new Set(updated));
+    setSelectedContents(uniqueUpdated);
   };
 
   return (
