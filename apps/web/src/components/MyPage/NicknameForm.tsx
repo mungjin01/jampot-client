@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Icon } from '@repo/ui';
 import { fetcher } from '@repo/api';
+import { useState } from 'react';
 
 type NicknameFormProps = {
   nickName: string;
@@ -19,6 +20,7 @@ export const NicknameForm = ({
   profileImgUrl,
   setProfileImgUrl,
 }: NicknameFormProps) => {
+  const [imageVersion, setImageVersion] = useState(Date.now());
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -36,7 +38,9 @@ export const NicknameForm = ({
           },
         }
       );
+
       setProfileImgUrl(res.profileImageUrl);
+      setImageVersion(Date.now());
     } catch (error) {
       alert('이미지 업로드에 실패했습니다.');
       console.error(error);
@@ -49,7 +53,10 @@ export const NicknameForm = ({
         <ImageUploadWrapper>
           <label htmlFor="profile-image-upload">
             {profileImgUrl ? (
-              <ProfileImage src={profileImgUrl} alt="프로필 이미지" />
+              <ProfileImage
+                src={`${profileImgUrl}?v=${imageVersion}`}
+                alt="프로필 이미지"
+              />
             ) : (
               <Icon name="profileImage" size={100} />
             )}
