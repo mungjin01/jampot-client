@@ -7,7 +7,7 @@ import {
   SESSION_LABELS,
   SESSION_VALUE_TO_LABEL,
 } from '@web/constants/onboarding';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 type ProfileInfoProps = {
   sessionList: string[];
@@ -59,6 +59,13 @@ export const ProfileInfo = ({
       console.error(err);
     }
   };
+
+  const selectedSessionLabels = useMemo(() => {
+    return Array.from(
+      new Set(sessionList.map((v) => SESSION_VALUE_TO_LABEL[v]))
+    );
+  }, [sessionList]);
+
   return (
     <div>
       <FormContainer>
@@ -66,12 +73,15 @@ export const ProfileInfo = ({
           세션 정하기
           <Dropdown
             title="세션 선택"
-            width="434px"
             contents={SESSION_LABELS}
-            selectedContents={sessionList.map((v) => SESSION_VALUE_TO_LABEL[v])}
-            setSelectedContents={(labels) =>
-              setSessionList(labels.map((l) => SESSION_LABEL_TO_VALUE[l]))
-            }
+            selectedContents={selectedSessionLabels}
+            setSelectedContents={(labels) => {
+              const uniqueValues = Array.from(
+                new Set(labels.map((l) => SESSION_LABEL_TO_VALUE[l]))
+              );
+              setSessionList(uniqueValues);
+            }}
+            width="434px"
           />
         </SectionContainer>
         <SectionContainer>
@@ -101,6 +111,15 @@ export const ProfileInfo = ({
             buttonText="올리기"
             buttonClickHandler={handleFileClick}
           />
+          {audioFileUrl && (
+            <audio
+              controls
+              src={audioFileUrl}
+              style={{ width: '434px', marginTop: '10px' }}
+            >
+              브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+          )}
         </SectionContainer>
         <ButtonContainer>
           <Button colorTheme="yellow2" height="48px" onClick={onSave}>
@@ -138,5 +157,5 @@ const SectionContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 179px;
+  margin-top: 105px;
 `;
