@@ -5,6 +5,7 @@ import {
   GENRES,
   SESSION_LABEL_TO_VALUE,
   SESSION_LABELS,
+  SESSION_VALUE_TO_LABEL,
 } from '@web/constants/onboarding';
 import { useRef, useState } from 'react';
 
@@ -67,7 +68,7 @@ export const ProfileInfo = ({
             title="세션 선택"
             width="434px"
             contents={SESSION_LABELS}
-            selectedContents={sessionList.map((v) => SESSION_LABEL_TO_VALUE[v])}
+            selectedContents={sessionList.map((v) => SESSION_VALUE_TO_LABEL[v])}
             setSelectedContents={(labels) =>
               setSessionList(labels.map((l) => SESSION_LABEL_TO_VALUE[l]))
             }
