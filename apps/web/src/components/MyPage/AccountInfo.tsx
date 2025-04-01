@@ -23,13 +23,20 @@ export const AccountInfo = ({
       console.error('로그아웃 실패:', error);
     }
   };
-
   const handleDelete = async () => {
-    try {
-      await fetcher.delete('/user/delete');
-      window.location.href = '/';
-    } catch (error) {
-      console.error('회원 탈퇴 실패:', error);
+    const confirmDelete = window.confirm(
+      '정말로 계정을 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.'
+    );
+
+    if (confirmDelete) {
+      try {
+        await fetcher.delete('/user/delete');
+        window.location.href = '/';
+      } catch (error) {
+        console.error('회원 탈퇴 실패:', error);
+      }
+    } else {
+      console.log('회원 탈퇴가 취소되었습니다.');
     }
   };
 

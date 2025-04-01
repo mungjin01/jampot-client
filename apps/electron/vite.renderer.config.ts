@@ -22,9 +22,7 @@ export default defineConfig({
       cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
     },
   },
-  optimizeDeps: {
-    include: ['@emotion/react', '@emotion/styled'],
-  },
+
   resolve: {
     alias: {
       '@repo/ui': path.resolve(__dirname, '../../packages/ui/src'),
