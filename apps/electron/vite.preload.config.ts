@@ -13,7 +13,7 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
-      external: [],
+      external: ['npm-events-package'],
     },
   },
   server: {
