@@ -1,7 +1,72 @@
+import {
+  GENRES,
+  SESSION_LABEL_TO_VALUE,
+  SESSION_LABELS,
+  SESSION_VALUE_TO_LABEL,
+} from '../../constants/onboarding';
 import styled from '@emotion/styled';
+import { fetcher } from '@repo/api';
 import { Button, ButtonTextField, Dropdown } from '@repo/ui';
 
-export const ProfileInfo = () => {
+import { useMemo, useRef, useState } from 'react';
+
+type ProfileInfoProps = {
+  sessionList: string[];
+  setSessionList: (sessions: string[]) => void;
+  genreList: string[];
+  setGenreList: (genres: string[]) => void;
+  audioFileUrl: string;
+  setAudioFileUrl: (url: string) => void;
+  onSave: () => void;
+};
+
+export const ProfileInfo = ({
+  sessionList,
+  setSessionList,
+  genreList,
+  setGenreList,
+  audioFileUrl,
+  setAudioFileUrl,
+  onSave,
+}: ProfileInfoProps) => {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [fileName, setFileName] = useState('');
+
+  const handleFileClick = () => {
+    fileRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res = await fetcher.post<{ profileAudioUrl: string }>(
+        '/user/upload-profile-audio',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      setAudioFileUrl(res.profileAudioUrl);
+      setFileName(file.name);
+    } catch (err) {
+      alert('오디오 업로드에 실패했습니다.');
+      console.error(err);
+    }
+  };
+
+  const selectedSessionLabels = useMemo(() => {
+    return Array.from(
+      new Set(sessionList.map((v) => SESSION_VALUE_TO_LABEL[v]))
+    );
+  }, [sessionList]);
+
   return (
     <div>
       <FormContainer>
@@ -9,38 +74,58 @@ export const ProfileInfo = () => {
           세션 정하기
           <Dropdown
             title="세션 선택"
-            width="434px"
-            contents={[]}
-            selectedContents={[]}
-            setSelectedContents={function (selected: string[]): void {
-              throw new Error('Function not implemented.');
+            contents={SESSION_LABELS}
+            selectedContents={selectedSessionLabels}
+            setSelectedContents={(
+              labels: (keyof typeof SESSION_LABEL_TO_VALUE)[]
+            ) => {
+              const uniqueValues = Array.from(
+                new Set(labels.map((l) => SESSION_LABEL_TO_VALUE[l]))
+              );
+              setSessionList(uniqueValues);
             }}
+            width="434px"
           />
         </SectionContainer>
         <SectionContainer>
           장르 정하기
           <Dropdown
             title="장르 선택"
+            contents={GENRES}
+            selectedContents={genreList}
+            setSelectedContents={setGenreList}
             width="434px"
-            contents={[]}
-            selectedContents={[]}
-            setSelectedContents={function (selected: string[]): void {
-              throw new Error('Function not implemented.');
-            }}
           />
         </SectionContainer>
         <SectionContainer>
           15초 오디오
+          <input
+            type="file"
+            accept="audio/*"
+            onChange={handleFileChange}
+            ref={fileRef}
+            style={{ display: 'none' }}
+          />
           <ButtonTextField
             width="434px"
-            buttonText={'올리기'}
-            buttonClickHandler={function (): void {
-              throw new Error('Function not implemented.');
-            }}
+            value={fileName}
+            placeholder="오디오 파일 선택"
+            readOnly
+            buttonText="올리기"
+            buttonClickHandler={handleFileClick}
           />
+          {audioFileUrl && (
+            <audio
+              controls
+              src={audioFileUrl}
+              style={{ width: '434px', marginTop: '10px' }}
+            >
+              브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+          )}
         </SectionContainer>
         <ButtonContainer>
-          <Button colorTheme="yellow2" height="48px">
+          <Button colorTheme="yellow2" height="48px" onClick={onSave}>
             저장하기
           </Button>
         </ButtonContainer>
@@ -75,5 +160,5 @@ const SectionContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 179px;
+  margin-top: 105px;
 `;

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, session } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 
 let loginWindow: BrowserWindow | null = null;
@@ -30,12 +30,12 @@ function createMainWindowWithCookies(cookies: Electron.Cookie[]) {
   Promise.all(
     cookies.map((cookie) =>
       mainWindow!.webContents.session.cookies.set({
-        url: 'https://localhost:3000',
+        url: 'https://localhost:5173',
         ...cookie,
       })
     )
   ).then(() => {
-    mainWindow!.loadURL('https://localhost:3000');
+    mainWindow!.loadURL('https://localhost:5173');
     loginWindow?.close();
     loginWindow = null;
   });
@@ -47,7 +47,7 @@ app.whenReady().then(() => {
 
 ipcMain.on('login-success', async () => {
   const cookies = await loginWindow!.webContents.session.cookies.get({
-    url: 'http://localhost:3000',
+    url: 'https://localhost:3000',
   });
 
   createMainWindowWithCookies(cookies);

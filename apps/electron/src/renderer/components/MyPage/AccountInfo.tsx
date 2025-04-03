@@ -1,23 +1,66 @@
 import styled from '@emotion/styled';
+import { fetcher } from '@repo/api';
 import { Toggle } from '@repo/ui';
 
-export const AccountInfo = () => {
+type AccountInfoProps = {
+  isPublic: boolean;
+  calenderServiceAgreement: boolean;
+  setIsPublic: React.Dispatch<React.SetStateAction<boolean>>;
+  setCalenderServiceAgreement: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const AccountInfo = ({
+  isPublic,
+  calenderServiceAgreement,
+  setIsPublic,
+  setCalenderServiceAgreement,
+}: AccountInfoProps) => {
+  const handleLogout = async () => {
+    try {
+      await fetcher.post('/user/logout');
+      window.location.href = '/';
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+    }
+  };
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      '정말로 계정을 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.'
+    );
+
+    if (confirmDelete) {
+      try {
+        await fetcher.delete('/user/delete');
+        window.location.href = '/';
+      } catch (error) {
+        console.error('회원 탈퇴 실패:', error);
+      }
+    } else {
+      console.log('회원 탈퇴가 취소되었습니다.');
+    }
+  };
+
   return (
     <div>
       <FormContainer>
         <CalendarContainer>
           <TextContainer>🗓️ 캘린더 권한 허용</TextContainer>
           <Toggle
-            checked={true}
-            onChange={function (): void {
-              throw new Error('Function not implemented.');
-            }}
+            checked={calenderServiceAgreement}
+            onChange={() =>
+              setCalenderServiceAgreement(!calenderServiceAgreement)
+            }
           />
         </CalendarContainer>
         <GapContainer />
-        <TextContainer>📞 로그아웃</TextContainer>
+        <CalendarContainer>
+          <TextContainer>🌐 공개 허용</TextContainer>
+          <Toggle checked={isPublic} onChange={() => setIsPublic(!isPublic)} />
+        </CalendarContainer>
         <GapContainer />
-        <TextContainer>🍭 회원 탈퇴</TextContainer>
+        <TextContainer onClick={handleLogout}>📞 로그아웃</TextContainer>
+        <GapContainer />
+        <TextContainer onClick={handleDelete}>🍭 회원 탈퇴</TextContainer>
       </FormContainer>
     </div>
   );

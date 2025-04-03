@@ -5,7 +5,8 @@
     },
     "allowJs": true,
     "jsx": "react-jsx",
-    "lib": ["ESNext", "DOM"]
+    "lib": ["ESNext", "DOM"],
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   },
   "include": ["**/*.ts", "**/*.tsx", "src/vite-env.d.ts"],
   "exclude": ["node_modules"]
