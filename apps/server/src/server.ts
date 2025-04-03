@@ -18,6 +18,10 @@ app.use(express.json());
 let worker: mediasoup.types.Worker;
 let router: mediasoup.types.Router;
 
+const transports = new Map<WebSocket, mediasoup.types.WebRtcTransport>();
+const producers = new Map<WebSocket, mediasoup.types.Producer>();
+const consumers = new Map<WebSocket, mediasoup.types.Consumer>();
+
 async function initMediasoup() {
   worker = await mediasoup.createWorker({
     rtcMinPort: mediasoupConfig.worker.rtcMinPort,
@@ -60,19 +64,84 @@ initMediasoup();
 
 wss.on('connection', (ws) => {
   console.log('WebSocket 연결됨');
-
-  ws.on('message', (message) => {
+  ws.on('message', async (message) => {
     const data = JSON.parse(message.toString());
 
-    if (data.type === 'produce') {
-      console.log('클라이언트가 오디오 송출을 시작함');
-      console.log(`Kind: ${data.kind}`);
-      console.log(`RTP Parameters:`, data.rtpParameters);
+    if (data.type === 'getRouterRtpCapabilities') {
+      ws.send(
+        JSON.stringify({
+          type: 'routerRtpCapabilities',
+          data: router.rtpCapabilities,
+        })
+      );
+    } else if (data.type === 'createTransport') {
+      const { transport, params } = await createWebRtcTransport();
+      transports.set(ws, transport);
+
+      ws.send(JSON.stringify({ type: 'transportCreated', data: params }));
+    } else if (data.type === 'connectTransport') {
+      const transport = transports.get(ws);
+      if (!transport) return;
+      await transport.connect({ dtlsParameters: data.dtlsParameters });
+      console.log('Send Transport 연결 완료');
+    } else if (data.type === 'produce') {
+      const transport = transports.get(ws);
+      if (!transport) return;
+
+      const producer = await transport.produce({
+        kind: data.kind,
+        rtpParameters: data.rtpParameters,
+      });
+
+      producers.set(ws, producer);
+
+      ws.send(JSON.stringify({ type: 'produced', id: producer.id }));
+      console.log('Producer 생성됨:', producer.id);
+    } else if (data.type === 'createRecvTransport') {
+      const { transport, params } = await createWebRtcTransport();
+      transports.set(ws, transport);
+
+      ws.send(JSON.stringify({ type: 'recvTransportCreated', data: params }));
+    } else if (data.type === 'connectRecvTransport') {
+      const transport = transports.get(ws);
+      if (!transport) return;
+
+      await transport.connect({ dtlsParameters: data.dtlsParameters });
+      console.log('Recv Transport 연결 완료');
+    } else if (data.type === 'consume') {
+      const recvTransport = transports.get(ws);
+      const producer = [...producers.values()][0];
+
+      if (!recvTransport || !producer) return;
+
+      const consumer = await recvTransport.consume({
+        producerId: producer.id,
+        rtpCapabilities: data.rtpCapabilities,
+        paused: false,
+      });
+
+      consumers.set(ws, consumer);
+
+      ws.send(
+        JSON.stringify({
+          type: 'consumed',
+          data: {
+            id: consumer.id,
+            producerId: producer.id,
+            kind: consumer.kind,
+            rtpParameters: consumer.rtpParameters,
+          },
+        })
+      );
+
+      console.log('Consumer 생성됨:', consumer.id);
     }
   });
 
   ws.on('close', () => {
-    console.log('WebSocket 연결 종료');
+    transports.delete(ws);
+    producers.delete(ws);
+    consumers.delete(ws);
   });
 });
 
