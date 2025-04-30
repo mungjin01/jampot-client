@@ -24,9 +24,7 @@ export const startWebRTC = ({ onConnect, onLog }: WebRTCOptions) => {
       await device.load({ routerRtpCapabilities: message.data });
 
       socket.send(JSON.stringify({ type: 'createTransport' }));
-    }
-
-    if (message.type === 'transportCreated') {
+    } else if (message.type === 'transportCreated') {
       const transportParams: types.TransportOptions = message.data;
 
       sendTransport = device.createSendTransport(transportParams);
@@ -49,9 +47,7 @@ export const startWebRTC = ({ onConnect, onLog }: WebRTCOptions) => {
       await sendTransport.produce({ track });
 
       socket.send(JSON.stringify({ type: 'createRecvTransport' }));
-    }
-
-    if (message.type === 'recvTransportCreated') {
+    } else if (message.type === 'recvTransportCreated') {
       const { id, iceParameters, iceCandidates, dtlsParameters } = message.data;
 
       recvTransport = device.createRecvTransport({
@@ -74,9 +70,7 @@ export const startWebRTC = ({ onConnect, onLog }: WebRTCOptions) => {
           rtpCapabilities: device.rtpCapabilities,
         })
       );
-    }
-
-    if (message.type === 'consumed') {
+    } else if (message.type === 'consumed') {
       const { id, producerId, kind, rtpParameters } = message.data;
 
       const consumer = await recvTransport.consume({
@@ -90,8 +84,6 @@ export const startWebRTC = ({ onConnect, onLog }: WebRTCOptions) => {
       const audio = new Audio();
       audio.srcObject = stream;
       audio.play();
-
-      onConnect();
     }
   };
 };

@@ -20,7 +20,7 @@ let router: mediasoup.types.Router;
 
 const transports = new Map<WebSocket, mediasoup.types.WebRtcTransport>();
 const producers = new Map<WebSocket, mediasoup.types.Producer>();
-const consumers = new Map<WebSocket, mediasoup.types.Consumer>();
+const consumers = new Map<WebSocket, mediasoup.types.Consumer[]>();
 
 async function initMediasoup() {
   worker = await mediasoup.createWorker({
@@ -110,31 +110,35 @@ wss.on('connection', (ws) => {
       console.log('Recv Transport 연결 완료');
     } else if (data.type === 'consume') {
       const recvTransport = transports.get(ws);
-      const producer = [...producers.values()][0];
+      if (!recvTransport) return;
 
-      if (!recvTransport || !producer) return;
+      const consumerList: mediasoup.types.Consumer[] = [];
 
-      const consumer = await recvTransport.consume({
-        producerId: producer.id,
-        rtpCapabilities: data.rtpCapabilities,
-        paused: false,
-      });
+      for (const producer of producers.values()) {
+        const consumer = await recvTransport.consume({
+          producerId: producer.id,
+          rtpCapabilities: data.rtpCapabilities,
+          paused: false,
+        });
 
-      consumers.set(ws, consumer);
+        consumerList.push(consumer);
 
-      ws.send(
-        JSON.stringify({
-          type: 'consumed',
-          data: {
-            id: consumer.id,
-            producerId: producer.id,
-            kind: consumer.kind,
-            rtpParameters: consumer.rtpParameters,
-          },
-        })
-      );
+        ws.send(
+          JSON.stringify({
+            type: 'consumed',
+            data: {
+              id: consumer.id,
+              producerId: producer.id,
+              kind: consumer.kind,
+              rtpParameters: consumer.rtpParameters,
+            },
+          })
+        );
 
-      console.log('Consumer 생성됨:', consumer.id);
+        console.log('Consumer 생성됨:', consumer.id);
+      }
+
+      consumers.set(ws, consumerList);
     }
   });
 
