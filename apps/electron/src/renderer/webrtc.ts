@@ -1,14 +1,14 @@
-import { Device } from 'mediasoup-client';
+import { Device, types } from 'mediasoup-client';
 
 interface WebRTCOptions {
   onConnect: () => void;
   onLog: (message: string) => void;
 }
-
 export const startWebRTC = ({ onConnect, onLog }: WebRTCOptions) => {
   const socket = new WebSocket('ws://localhost:4000');
   let device: Device;
-  let sendTransport: any; //TODO
+  let sendTransport: types.Transport;
+  let recvTransport: types.Transport;
 
   socket.onopen = () => {
     onLog('WebSocket 연결됨');
@@ -23,34 +23,74 @@ export const startWebRTC = ({ onConnect, onLog }: WebRTCOptions) => {
       device = new Device();
       await device.load({ routerRtpCapabilities: message.data });
 
-      onLog('Router RTP Capabilities 로드 완료');
       socket.send(JSON.stringify({ type: 'createTransport' }));
     }
 
     if (message.type === 'transportCreated') {
-      const transportParams = message.data;
+      const transportParams: types.TransportOptions = message.data;
 
       sendTransport = device.createSendTransport(transportParams);
-      onLog('Send Transport 생성 완료');
 
       sendTransport.on('connect', ({ dtlsParameters }, callback) => {
         socket.send(
           JSON.stringify({ type: 'connectTransport', dtlsParameters })
         );
-        onLog('Transport 연결 요청');
         callback();
       });
 
-      sendTransport.on('produce', async ({ kind, rtpParameters }, callback) => {
+      sendTransport.on('produce', ({ kind, rtpParameters }, callback) => {
         socket.send(JSON.stringify({ type: 'produce', kind, rtpParameters }));
-        onLog('오디오 송출 시작');
-        callback({ id: 'fake-producer-id' });
+        callback({ id: 'fake-id' }); //TODO
       });
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const track = stream.getAudioTracks()[0];
 
       await sendTransport.produce({ track });
+
+      socket.send(JSON.stringify({ type: 'createRecvTransport' }));
+    }
+
+    if (message.type === 'recvTransportCreated') {
+      const { id, iceParameters, iceCandidates, dtlsParameters } = message.data;
+
+      recvTransport = device.createRecvTransport({
+        id,
+        iceParameters,
+        iceCandidates,
+        dtlsParameters,
+      });
+
+      recvTransport.on('connect', ({ dtlsParameters }, callback) => {
+        socket.send(
+          JSON.stringify({ type: 'connectRecvTransport', dtlsParameters })
+        );
+        callback();
+      });
+
+      socket.send(
+        JSON.stringify({
+          type: 'consume',
+          rtpCapabilities: device.rtpCapabilities,
+        })
+      );
+    }
+
+    if (message.type === 'consumed') {
+      const { id, producerId, kind, rtpParameters } = message.data;
+
+      const consumer = await recvTransport.consume({
+        id,
+        producerId,
+        kind,
+        rtpParameters,
+      });
+
+      const stream = new MediaStream([consumer.track]);
+      const audio = new Audio();
+      audio.srcObject = stream;
+      audio.play();
+
       onConnect();
     }
   };
