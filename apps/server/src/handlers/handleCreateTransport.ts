@@ -3,11 +3,15 @@ import { transportManager } from '@server/managers/TransportManager';
 import { router } from '@server/mediasoup';
 import type { WebSocket as WsSocket } from 'ws';
 
-export async function handleCreateTransport(ws: WsSocket) {
+interface ExtendedWebSocket extends WsSocket {
+  userId?: string;
+}
+
+export async function handleCreateTransport(ws: ExtendedWebSocket) {
   const transport = await router.createWebRtcTransport(
     mediasoupConfig.webRtcTransport
   );
-  const userId = (ws as any).userId;
+  const userId = ws.userId;
   transportManager.set(userId, transport);
 
   ws.send(
