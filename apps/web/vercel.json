@@ -1,0 +1,12 @@
+{
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist",
+  "rootDirectory": "apps/web",
+  "routes": [
+    {
+      "src": "/[^.]+",
+      "dest": "/",
+      "status": 200
+    }
+  ]
+}
