@@ -1,9 +1,8 @@
 import type { WebSocket as WsSocket } from 'ws';
-import mediasoup from 'mediasoup';
 import type { RtpCapabilities } from 'mediasoup/node/lib/types';
-import { transportManager } from '@server/managers/TransportManager';
 
-const producers = new Map<string, mediasoup.types.Producer>();
+import { transportManager } from '@server/managers/TransportManager';
+import { producerManager } from '@server/managers/ProducerManager';
 
 export async function handleConsume(
   ws: WsSocket,
@@ -12,7 +11,7 @@ export async function handleConsume(
   const recvTransport = transportManager.get(data.userId);
   if (!recvTransport) return;
 
-  for (const [otherUserId, producer] of producers.entries()) {
+  for (const [otherUserId, producer] of producerManager.getAll()) {
     if (otherUserId === data.userId) continue;
 
     const consumer = await recvTransport.consume({
@@ -20,6 +19,9 @@ export async function handleConsume(
       rtpCapabilities: data.rtpCapabilities,
       paused: false,
     });
+    console.log(
+      `[consume] created consumer for ${data.userId} from ${otherUserId}`
+    );
 
     ws.send(
       JSON.stringify({

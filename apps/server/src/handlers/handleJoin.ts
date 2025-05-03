@@ -18,4 +18,5 @@ export function handleJoin(
 
   const summary = peerManager.getAllSummaries();
   peerManager.broadcast('peerList', summary);
+  console.log('[peerManager]', peerManager.getAllSummaries());
 }
