@@ -23,7 +23,7 @@ const Container = styled.div<ChipProps>`
   white-space: nowrap;
 
   width: ${({ width }) => width || 'auto'};
-  height: 42px;
+  height: 38px;
   padding: 0 16px;
   border-radius: 8px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.13);
