@@ -1,4 +1,4 @@
-import { RoomCard, SessionCard, Tab } from '@repo/ui';
+import { ChatCard, RoomCard, SessionCard, Tab } from '@repo/ui';
 import { startWebRTC } from '@web/webrtc';
 import { useRef, useState } from 'react';
 
@@ -73,6 +73,17 @@ export const TestPage = () => {
       <button onClick={handleStartWebRTC} disabled={started}>
         연결 시작
       </button>
+
+      <ChatCard
+        targetprofileImgUrl="https://i.esdrop.com/d/f/AfOYjCl4ON/sZfPFcWjDG.jpg"
+        targetnickname="닉네임"
+        lastMessage="마지막 채팅 내용 들어가는 자리 마지막 채팅 내용 들어가는 자리 마지막 채팅 내용 들어가는 자리 마지막 채팅 내용 들어가는 자리"
+        lastMessageTime="2025.05.06"
+        unreadCount={3}
+        onClick={() => {
+          console.log('클릭티비');
+        }}
+      />
 
       <SessionCard
         imageUrl="https://i.esdrop.com/d/f/AfOYjCl4ON/sZfPFcWjDG.jpg"

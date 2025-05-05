@@ -12,3 +12,4 @@ export { Toggle } from './Toggle/Toggle';
 export { SessionCard } from './Card/SessionCard';
 export { RoomCard } from './Card/RoomCard';
 export { Tab } from './Tab/Tab';
+export { ChatCard } from './Chat/ChatCard';
