@@ -1,3 +1,4 @@
+import { SessionCard } from '@repo/ui';
 import { startWebRTC } from '@web/webrtc';
 import { useRef, useState } from 'react';
 
@@ -69,6 +70,16 @@ export const TestPage = () => {
       <button onClick={handleStartWebRTC} disabled={started}>
         연결 시작
       </button>
+
+      <SessionCard
+        imageUrl="https://i.esdrop.com/d/f/AfOYjCl4ON/sZfPFcWjDG.jpg"
+        userName="유지예"
+        userDescription="자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 "
+        tags={['Vocal', 'Guitar']}
+        onLike={() => {
+          console.log('좋아요 버튼 눌림');
+        }}
+      />
 
       <h3>참가자 목록</h3>
       <div

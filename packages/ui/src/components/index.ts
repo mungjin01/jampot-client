@@ -9,3 +9,4 @@ export { ButtonTextField } from './TextField/ButtonTextField';
 export { LoginButton } from './Button/LoginButton';
 export { Dropdown } from './Dropdown/Dropdown';
 export { Toggle } from './Toggle/Toggle';
+export { SessionCard } from './Card/SessionCard';
