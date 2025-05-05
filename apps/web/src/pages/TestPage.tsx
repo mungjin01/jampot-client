@@ -1,4 +1,4 @@
-import { RoomCard, SessionCard } from '@repo/ui';
+import { RoomCard, SessionCard, Tab } from '@repo/ui';
 import { startWebRTC } from '@web/webrtc';
 import { useRef, useState } from 'react';
 
@@ -64,6 +64,7 @@ export const TestPage = () => {
   };
 
   const [liked, setLiked] = useState(false);
+  const [activeTab, setActiveTab] = useState<'search' | 'liked'>('search');
 
   return (
     <div style={{ padding: '20px' }}>
@@ -90,6 +91,18 @@ export const TestPage = () => {
         isLiked={liked}
         onLike={() => setLiked(!liked)}
       />
+      <Tab<'search' | 'liked'>
+        items={[
+          { label: '세션 검색', value: 'search' },
+          { label: '세션 찜 리스트 보기', value: 'liked' },
+        ]}
+        selected={activeTab}
+        onChange={setActiveTab}
+      />
+
+      {activeTab === 'search' && <div>세션 검색</div>}
+      {activeTab === 'liked' && <div>세션 찜 리스트 보기</div>}
+
       <h3>참가자 목록</h3>
       <div
         style={{
