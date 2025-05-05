@@ -2,13 +2,13 @@ import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { Chip } from '../Chip/Chip';
 import { Icon } from '../Icon/Icon';
-import { useState } from 'react';
 
 export type SessionCardProps = React.ComponentProps<'div'> & {
   imageUrl: string;
   userName: string;
   userDescription: string;
   tags: string[];
+  isLiked: boolean;
   onLike: () => void;
 };
 
@@ -17,21 +17,16 @@ export const SessionCard = ({
   userName,
   userDescription,
   tags,
+  isLiked,
   onLike,
 }: SessionCardProps) => {
   const theme = useTheme();
-  const [isLiked, setIsLiked] = useState(false);
 
-  const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-    onLike();
-  };
   return (
     <CardContainer>
       <ImageContainer>
         <ProfileImage src={imageUrl} alt="profile" />
-
-        <LikeButton onClick={handleLikeClick}>
+        <LikeButton onClick={onLike}>
           <Icon
             name="heart"
             size={24}

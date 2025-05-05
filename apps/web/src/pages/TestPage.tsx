@@ -1,4 +1,4 @@
-import { SessionCard } from '@repo/ui';
+import { RoomCard, SessionCard } from '@repo/ui';
 import { startWebRTC } from '@web/webrtc';
 import { useRef, useState } from 'react';
 
@@ -63,6 +63,8 @@ export const TestPage = () => {
     setStarted(true);
   };
 
+  const [liked, setLiked] = useState(false);
+
   return (
     <div style={{ padding: '20px' }}>
       <h2>합주 테스트 페이지</h2>
@@ -76,11 +78,18 @@ export const TestPage = () => {
         userName="유지예"
         userDescription="자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 "
         tags={['Vocal', 'Guitar']}
-        onLike={() => {
-          console.log('좋아요 버튼 눌림');
-        }}
+        isLiked={liked}
+        onLike={() => setLiked(!liked)}
       />
 
+      <RoomCard
+        imageUrl="https://i.esdrop.com/d/f/AfOYjCl4ON/XN5oxZTwMD.png"
+        genre="락"
+        remainingSessions={['보컬', '기타']}
+        roomName="합주실이름티비"
+        isLiked={liked}
+        onLike={() => setLiked(!liked)}
+      />
       <h3>참가자 목록</h3>
       <div
         style={{
