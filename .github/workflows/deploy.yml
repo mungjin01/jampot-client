@@ -30,6 +30,6 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd /home/ubuntu/mediasoup-server
-            npm install
+            npm install --legacy-peer-deps
             npm run build
             pm2 restart mediasoup || pm2 start dist/index.js --name mediasoup
