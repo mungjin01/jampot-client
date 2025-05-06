@@ -21,4 +21,5 @@ export type Message =
       userId: string;
       dtlsParameters: DtlsParameters;
     }
+  | { type: 'createRecvTransport'; userId: string }
   | { type: 'consume'; userId: string; rtpCapabilities: RtpCapabilities };
