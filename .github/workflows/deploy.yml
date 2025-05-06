@@ -22,7 +22,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
-          source: apps/server/
+          source: apps/server/*
           target: /home/ubuntu/mediasoup-server/
 
       - name: SSH and build/start server
