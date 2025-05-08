@@ -1,4 +1,4 @@
-import { useFrame } from '@react-three/fiber';
+import { useFrame, ThreeEvent } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import * as THREE from 'three';
 
@@ -30,7 +30,7 @@ export const RisingObjectItem = ({ object }: Props) => {
         setHovered(false);
         isDragging.current = false;
       }}
-      onPointerDown={(e) => {
+      onPointerDown={(e: ThreeEvent<PointerEvent>) => {
         isDragging.current = true;
         lastPointerX.current = e.clientX;
         object.userData.jumpVelocity = 0.1;
@@ -39,7 +39,7 @@ export const RisingObjectItem = ({ object }: Props) => {
       onPointerUp={() => {
         isDragging.current = false;
       }}
-      onPointerMove={(e) => {
+      onPointerMove={(e: ThreeEvent<PointerEvent>) => {
         if (isDragging.current && ref.current) {
           const deltaX = e.clientX - lastPointerX.current;
           ref.current.rotation.y += deltaX * 0.005;

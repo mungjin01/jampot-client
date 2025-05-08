@@ -77,7 +77,14 @@ export const ProfileInfo = ({
             selectedContents={selectedSessionLabels}
             setSelectedContents={(labels) => {
               const uniqueValues = Array.from(
-                new Set(labels.map((l) => SESSION_LABEL_TO_VALUE[l]))
+                new Set(
+                  labels.map(
+                    (l) =>
+                      SESSION_LABEL_TO_VALUE[
+                        l as keyof typeof SESSION_LABEL_TO_VALUE
+                      ]
+                  )
+                )
               );
               setSessionList(uniqueValues);
             }}
