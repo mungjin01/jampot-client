@@ -1,13 +1,21 @@
 {
   "compilerOptions": {
+    "target": "ES2015",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "outDir": "dist",
+    "baseUrl": ".",
     "paths": {
       "@web/*": ["./src/*"]
     },
-    "allowJs": true,
-    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
     "lib": ["ESNext", "DOM"],
-    "typeRoots": ["./src/types", "./node_modules/@types"]
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "skipLibCheck": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "src/vite-env.d.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src", "**/*.ts", "**/*.tsx", "src/vite-env.d.ts"],
+  "exclude": ["node_modules", "dist"]
 }

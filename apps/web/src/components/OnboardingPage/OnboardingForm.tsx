@@ -77,7 +77,14 @@ export const OnboardingForm = () => {
             (v) => SESSION_VALUE_TO_LABEL[v]
           )}
           setSelectedContents={(labels) =>
-            setSessions(labels.map((l) => SESSION_LABEL_TO_VALUE[l]))
+            setSessions(
+              labels.map(
+                (l) =>
+                  SESSION_LABEL_TO_VALUE[
+                    l as keyof typeof SESSION_LABEL_TO_VALUE
+                  ]
+              )
+            )
           }
           width="434px"
         />
@@ -120,7 +127,6 @@ export const OnboardingForm = () => {
     </OnboardingContainer>
   );
 };
-
 const OnboardingContainer = styled.div`
   display: flex;
   padding: 60px;

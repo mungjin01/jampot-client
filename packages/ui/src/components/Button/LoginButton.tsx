@@ -8,19 +8,21 @@ type LoginTheme = 'google' | 'kakao';
 export interface ButtonProps {
   loginTheme: LoginTheme;
   iconName?: 'google' | 'kakao';
+  iconSize?: number;
 }
 
 export const LoginButton = ({
   children,
   loginTheme,
   iconName,
+  iconSize,
   ...rest
 }: Props) => {
   return (
     <Styled.Container loginTheme={loginTheme} {...rest}>
       {iconName && (
         <Styled.Icons>
-          <Icon name={iconName} size={18} />
+          <Icon name={iconName} size={iconSize ?? 18} />
         </Styled.Icons>
       )}
       {children}
