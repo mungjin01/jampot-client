@@ -1,18 +1,21 @@
 import type { Producer } from 'mediasoup/node/lib/types';
 
-const producers = new Map<string, Producer>();
+export class ProducerManager {
+  private producers = new Map<string, Producer>();
 
-export const producerManager = {
-  set: (userId: string, producer: Producer) => {
-    producers.set(userId, producer);
-  },
-  get: (userId: string) => {
-    return producers.get(userId);
-  },
-  getAll: () => {
-    return Array.from(producers.entries());
-  },
-  delete: (userId: string) => {
-    producers.delete(userId);
-  },
-};
+  set(userId: string, producer: Producer) {
+    this.producers.set(userId, producer);
+  }
+
+  get(userId: string) {
+    return this.producers.get(userId);
+  }
+
+  getAll() {
+    return Array.from(this.producers.entries());
+  }
+
+  delete(userId: string) {
+    this.producers.delete(userId);
+  }
+}

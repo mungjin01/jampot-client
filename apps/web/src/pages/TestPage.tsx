@@ -1,3 +1,4 @@
+import { ChatCard, RoomCard, SessionCard, Tab } from '@repo/ui';
 import { startWebRTC } from '@web/webrtc';
 import { useRef, useState } from 'react';
 
@@ -62,6 +63,9 @@ export const TestPage = () => {
     setStarted(true);
   };
 
+  const [liked, setLiked] = useState(false);
+  const [activeTab, setActiveTab] = useState<'search' | 'liked'>('search');
+
   return (
     <div style={{ padding: '20px' }}>
       <h2>합주 테스트 페이지</h2>
@@ -69,6 +73,46 @@ export const TestPage = () => {
       <button onClick={handleStartWebRTC} disabled={started}>
         연결 시작
       </button>
+
+      <ChatCard
+        targetprofileImgUrl="https://i.esdrop.com/d/f/AfOYjCl4ON/sZfPFcWjDG.jpg"
+        targetnickname="닉네임"
+        lastMessage="마지막 채팅 내용 들어가는 자리 마지막 채팅 내용 들어가는 자리 마지막 채팅 내용 들어가는 자리 마지막 채팅 내용 들어가는 자리"
+        lastMessageTime="2025.05.06"
+        unreadCount={3}
+        onClick={() => {
+          console.log('클릭티비');
+        }}
+      />
+
+      <SessionCard
+        imageUrl="https://i.esdrop.com/d/f/AfOYjCl4ON/sZfPFcWjDG.jpg"
+        userName="유지예"
+        userDescription="자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 자기 소개 들어가는 자리 "
+        tags={['Vocal', 'Guitar']}
+        isLiked={liked}
+        onLike={() => setLiked(!liked)}
+      />
+
+      <RoomCard
+        imageUrl="https://i.esdrop.com/d/f/AfOYjCl4ON/XN5oxZTwMD.png"
+        genre="락"
+        remainingSessions={['보컬', '기타']}
+        roomName="합주실이름티비"
+        isLiked={liked}
+        onLike={() => setLiked(!liked)}
+      />
+      <Tab<'search' | 'liked'>
+        items={[
+          { label: '세션 검색', value: 'search' },
+          { label: '세션 찜 리스트 보기', value: 'liked' },
+        ]}
+        selected={activeTab}
+        onChange={setActiveTab}
+      />
+
+      {activeTab === 'search' && <div>세션 검색</div>}
+      {activeTab === 'liked' && <div>세션 찜 리스트 보기</div>}
 
       <h3>참가자 목록</h3>
       <div

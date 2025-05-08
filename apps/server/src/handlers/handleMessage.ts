@@ -12,7 +12,7 @@ import type { WebSocket as WsSocket } from 'ws';
 export async function handleMessage(ws: WsSocket, data: Message) {
   switch (data.type) {
     case 'join':
-      return handleJoin(ws, data.userInfo);
+      return handleJoin(ws, data);
     case 'getRouterRtpCapabilities':
       return handleGetRouterRtpCapabilities(ws);
     case 'createTransport':

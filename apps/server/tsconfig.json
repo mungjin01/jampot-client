@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "dist",  
+
+    "outDir": "dist",
+
     "paths": {
-      "@server/*": ["./src/*"]
+      "@server/*": ["./src/*", "./mediasoup/*"]
     },
     "baseUrl": ".",
     "allowJs": true,

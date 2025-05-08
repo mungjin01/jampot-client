@@ -1,18 +1,22 @@
 import { mediasoupConfig } from '@server/config/mediasoupConfig';
-import { transportManager } from '@server/managers/TransportManager';
-import { router } from '@server/mediasoup';
+import { roomManager } from '@server/managers/RoomManager';
+
 import type { WebSocket as WsSocket } from 'ws';
 
 interface ExtendedWebSocket extends WsSocket {
   userId?: string;
+  roomId?: string;
 }
 
 export async function handleCreateRecvTransport(ws: ExtendedWebSocket) {
-  const transport = await router.createWebRtcTransport(
+  const room = roomManager.get(ws.roomId);
+  if (!room || !ws.userId) return;
+
+  const transport = await room.router.createWebRtcTransport(
     mediasoupConfig.webRtcTransport
   );
-  const userId = ws.userId;
-  transportManager.set(userId, transport);
+
+  room.transportManager.set(ws.userId, transport);
 
   ws.send(
     JSON.stringify({
