@@ -26,7 +26,10 @@ export type Message =
       type: 'connectRecvTransport';
       dtlsParameters: DtlsParameters;
     }
+
   | {
       type: 'consume';
       rtpCapabilities: RtpCapabilities;
     };
+
+

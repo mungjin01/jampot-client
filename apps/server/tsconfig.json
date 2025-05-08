@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
+
     "outDir": "dist",
+
     "paths": {
       "@server/*": ["./src/*", "./mediasoup/*"]
     },
