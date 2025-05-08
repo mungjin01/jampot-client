@@ -1,15 +1,21 @@
 import type { WebSocket as WsSocket } from 'ws';
 import type { MediaKind, RtpParameters } from 'mediasoup/node/lib/types';
 
-import { transportManager } from '@server/managers/TransportManager';
-import { peerManager } from '@server/managers/PeerManager';
-import { producerManager } from '@server/managers/ProducerManager';
+import { roomManager } from '@server/managers/RoomManager';
+
+interface ExtendedWebSocket extends WsSocket {
+  userId?: string;
+  roomId?: string;
+}
 
 export async function handleProduce(
-  ws: WsSocket,
-  data: { userId: string; kind: MediaKind; rtpParameters: RtpParameters }
+  ws: ExtendedWebSocket,
+  data: { kind: MediaKind; rtpParameters: RtpParameters }
 ) {
-  const transport = transportManager.get(data.userId);
+  const room = roomManager.get(ws.roomId);
+  if (!room || !ws.userId) return;
+
+  const transport = room.transportManager.get(ws.userId);
   if (!transport) return;
 
   const producer = await transport.produce({
@@ -17,16 +23,12 @@ export async function handleProduce(
     rtpParameters: data.rtpParameters,
   });
 
-  producerManager.set(data.userId, producer);
+  room.producerManager.set(ws.userId, producer);
 
   ws.send(JSON.stringify({ type: 'produced', id: producer.id }));
 
-  for (const [peerId, peer] of peerManager['peers'].entries()) {
-    if (peerId === data.userId) continue;
-    peer.ws.send(JSON.stringify({ type: 'newProducer', userId: data.userId }));
+  for (const [peerId, peer] of room.peerManager.entries) {
+    if (peerId === ws.userId) continue;
+    peer.ws.send(JSON.stringify({ type: 'newProducer', userId: ws.userId }));
   }
-  console.log(
-    '[Broadcast newProducer] to:',
-    Array.from(peerManager['peers'].keys())
-  );
 }

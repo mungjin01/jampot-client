@@ -2,7 +2,7 @@ import type { WebSocket as WsSocket } from 'ws';
 
 type Peer = { ws: WsSocket; name: string; role: string };
 
-class PeerManager {
+export class PeerManager {
   private peers = new Map<string, Peer>();
 
   add(id: string, peer: Peer) {
@@ -26,6 +26,8 @@ class PeerManager {
       peer.ws.send(JSON.stringify({ type, data }));
     }
   }
-}
 
-export const peerManager = new PeerManager();
+  get entries() {
+    return this.peers.entries();
+  }
+}

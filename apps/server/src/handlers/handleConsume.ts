@@ -1,27 +1,31 @@
 import type { WebSocket as WsSocket } from 'ws';
 import type { RtpCapabilities } from 'mediasoup/node/lib/types';
 
-import { transportManager } from '@server/managers/TransportManager';
-import { producerManager } from '@server/managers/ProducerManager';
+import { roomManager } from '@server/managers/RoomManager';
+
+interface ExtendedWebSocket extends WsSocket {
+  userId?: string;
+  roomId?: string;
+}
 
 export async function handleConsume(
-  ws: WsSocket,
-  data: { userId: string; rtpCapabilities: RtpCapabilities }
+  ws: ExtendedWebSocket,
+  data: { rtpCapabilities: RtpCapabilities }
 ) {
-  const recvTransport = transportManager.get(data.userId);
+  const room = roomManager.get(ws.roomId);
+  if (!room || !ws.userId) return;
+
+  const recvTransport = room.transportManager.get(ws.userId);
   if (!recvTransport) return;
 
-  for (const [otherUserId, producer] of producerManager.getAll()) {
-    if (otherUserId === data.userId) continue;
+  for (const [otherUserId, producer] of room.producerManager.getAll()) {
+    if (otherUserId === ws.userId) continue;
 
     const consumer = await recvTransport.consume({
       producerId: producer.id,
       rtpCapabilities: data.rtpCapabilities,
       paused: false,
     });
-    console.log(
-      `[consume] created consumer for ${data.userId} from ${otherUserId}`
-    );
 
     ws.send(
       JSON.stringify({

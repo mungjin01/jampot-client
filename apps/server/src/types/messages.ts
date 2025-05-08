@@ -6,19 +6,27 @@ import type {
 } from 'mediasoup/node/lib/types';
 
 export type Message =
-  | { type: 'join'; userInfo: { id: string; name: string; role: string } }
-  | { type: 'getRouterRtpCapabilities'; userId: string }
-  | { type: 'createTransport'; userId: string }
-  | { type: 'connectTransport'; userId: string; dtlsParameters: DtlsParameters }
+  | {
+      type: 'join';
+      roomId: string;
+      userInfo: { id: string; name: string; role: string };
+    }
+  | { type: 'getRouterRtpCapabilities' }
+  | { type: 'createTransport' }
+  | { type: 'connectTransport'; dtlsParameters: DtlsParameters }
   | {
       type: 'produce';
-      userId: string;
       kind: MediaKind;
       rtpParameters: RtpParameters;
     }
   | {
+      type: 'createRecvTransport';
+    }
+  | {
       type: 'connectRecvTransport';
-      userId: string;
       dtlsParameters: DtlsParameters;
     }
-  | { type: 'consume'; userId: string; rtpCapabilities: RtpCapabilities };
+  | {
+      type: 'consume';
+      rtpCapabilities: RtpCapabilities;
+    };

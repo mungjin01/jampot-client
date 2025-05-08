@@ -1,9 +1,9 @@
-import mediasoup from 'mediasoup';
+import type { WebRtcTransport } from 'mediasoup/node/lib/types';
 
-class TransportManager {
-  private map = new Map<string, mediasoup.types.WebRtcTransport>();
+export class TransportManager {
+  private map = new Map<string, WebRtcTransport>();
 
-  set(userId: string, transport: mediasoup.types.WebRtcTransport) {
+  set(userId: string, transport: WebRtcTransport) {
     this.map.set(userId, transport);
   }
 
@@ -15,5 +15,3 @@ class TransportManager {
     this.map.delete(userId);
   }
 }
-
-export const transportManager = new TransportManager();
